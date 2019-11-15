@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>QRCodeEncoderLibrary</name>
+    </assembly>
+    <members>
+        <member name="T:QRCodeEncoderLibrary.QRCodeCommandLine">
+            <summary>
+            Command line class
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.QRCodeCommandLine.Help">
+            <summary>
+            Command line help text
+            </summary>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QRCodeCommandLine.Encode(System.String)">
+            <summary>
+            Encode QRCode using command line class
+            </summary>
+            <param name="CommandLine">Command line text</param>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QRCodeCommandLine.Encode(System.String[])">
+            <summary>
+            Command line encode
+            </summary>
+            <param name="Args">Arguments array</param>
+        </member>
+        <member name="T:QRCodeEncoderLibrary.ErrorCorrection">
+            <summary>
+            QR Code error correction code enumeration
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.ErrorCorrection.L">
+            <summary>
+            Low (01)
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.ErrorCorrection.M">
+            <summary>
+            Medium (00)
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.ErrorCorrection.Q">
+            <summary>
+            Medium-high (11)
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.ErrorCorrection.H">
+            <summary>
+            High (10)
+            </summary>
+        </member>
+        <member name="T:QRCodeEncoderLibrary.EncodingMode">
+            <summary>
+            QR Code encoding modes
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Terminator">
+            <summary>
+            Terminator
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Numeric">
+            <summary>
+            Numeric
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.AlphaNumeric">
+            <summary>
+            Alpha numeric
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Append">
+            <summary>
+            Append
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Byte">
+            <summary>
+            byte encoding
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.FNC1First">
+            <summary>
+            FNC1 first
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Unknown6">
+            <summary>
+            Unknown encoding constant
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Unknown7">
+            <summary>
+            Unknown encoding constant
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Kanji">
+            <summary>
+            Kanji encoding (not implemented by this software)
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.FNC1Second">
+            <summary>
+            FNC1 second
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Unknown10">
+            <summary>
+            Unknown encoding constant
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Unknown11">
+            <summary>
+            Unknown encoding constant
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Unknown12">
+            <summary>
+            Unknown encoding constant
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Unknown13">
+            <summary>
+            Unknown encoding constant
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Unknown14">
+            <summary>
+            Unknown encoding constant
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.EncodingMode.Unknown15">
+            <summary>
+            Unknown encoding constant
+            </summary>
+        </member>
+        <member name="T:QRCodeEncoderLibrary.QREncoder">
+            <summary>
+            QR Code Encoder class
+            </summary>
+        </member>
+        <member name="F:QRCodeEncoderLibrary.QREncoder.VersionNumber">
+            <summary>
+            Version number
+            </summary>
+        </member>
+        <member name="P:QRCodeEncoderLibrary.QREncoder.QRCodeMatrix">
+            <summary>
+            QR code matrix.
+            </summary>
+        </member>
+        <member name="P:QRCodeEncoderLibrary.QREncoder.QRCodeVersion">
+            <summary>
+            Gets QR Code matrix version
+            </summary>
+        </member>
+        <member name="P:QRCodeEncoderLibrary.QREncoder.QRCodeDimension">
+            <summary>
+            Gets QR Code matrix dimension in bits
+            </summary>
+        </member>
+        <member name="P:QRCodeEncoderLibrary.QREncoder.QRCodeImageDimension">
+            <summary>
+            Gets QR Code image dimension
+            </summary>
+        </member>
+        <member name="P:QRCodeEncoderLibrary.QREncoder.MaskCode">
+            <summary>
+            Get mask code (0 to 7)
+            </summary>
+        </member>
+        <member name="P:QRCodeEncoderLibrary.QREncoder.ErrorCorrection">
+            <summary>
+            QR Code error correction code (L, M, Q, H)
+            </summary>
+        </member>
+        <member name="P:QRCodeEncoderLibrary.QREncoder.ModuleSize">
+            <summary>
+            Module size (Default: 2)
+            </summary>
+        </member>
+        <member name="P:QRCodeEncoderLibrary.QREncoder.QuietZone">
+            <summary>
+            Quiet zone around the barcode in pixels (Default: 8)
+            Must be at least 4 times module size
+            </summary>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QREncoder.Encode(System.String)">
+            <summary>
+            Encode one string into QRCode boolean matrix
+            </summary>
+            <param name="StringDataSegment">string data segment</param>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QREncoder.Encode(System.String[])">
+            <summary>
+            Encode array of strings into QRCode boolean matrix
+            </summary>
+            <param name="StringDataSegments">string data segments</param>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QREncoder.Encode(System.Byte[])">
+            <summary>
+            Encode one data segment into QRCode boolean matrix
+            </summary>
+            <param name="SingleDataSeg">Data segment byte array</param>
+            <returns>QR Code boolean matrix</returns>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QREncoder.Encode(System.Byte[][])">
+            <summary>
+            Encode data segments array into QRCode boolean matrix
+            </summary>
+            <param name="DataSegArray">Data array of byte arrays</param>
+            <returns>QR Code boolean matrix</returns>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QREncoder.SaveQRCodeToPngFile(System.String)">
+            <summary>
+            Save QRCode image to PNG file
+            </summary>
+            <param name="FileName">PNG file name</param>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QREncoder.SaveQRCodeToPngFile(System.IO.Stream)">
+            <summary>
+            Save QRCode image to PNG stream
+            </summary>
+            <param name="OutputStream">PNG output stream</param>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QREncoder.ConvertQRCodeMatrixToPixels">
+            <summary>
+            convert black and white matrix to black and white image
+            </summary>
+            <returns>Black and white image in pixels</returns>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QREncoder.SaveQRCodeToFile(System.String,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Save barcode Bitmap to file
+            </summary>
+            <param name="FileName">File name</param>
+            <param name="Format">Image file format (i.e. PNG, BMP, JPEG)</param>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QREncoder.SaveQRCodeToFile(System.IO.Stream,System.Drawing.Imaging.ImageFormat)">
+            <summary>
+            Save barcode Bitmap to stream
+            </summary>
+            <param name="OutputStream">Output stream</param>
+            <param name="Format">Image file format (i.e. PNG, BMP, JPEG)</param>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QREncoder.CreateQRCodeBitmap">
+            <summary>
+            Create Bitmap image of the Pdf417 barcode
+            </summary>
+            <returns>Barcode Bitmap</returns>
+        </member>
+        <member name="M:QRCodeEncoderLibrary.QREncoder.CreateQRCodeBitmap(System.Drawing.Brush,System.Drawing.Brush)">
+            <summary>
+            Create Pdf417 barcode Bitmap image from boolean black and white matrix
+            </summary>
+            <param name="WhiteBrush">Background color (White brush)</param>
+            <param name="BlackBrush">Bar color (Black brush)</param>
+            <returns>Pdf417 barcode image</returns>
+        </member>
+    </members>
+</doc>

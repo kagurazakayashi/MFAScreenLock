@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MFAScreenLockApp.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -11,6 +12,8 @@ namespace MFAScreenLockApp
 {
     public partial class FormUser : Form
     {
+        public int ws = 0;
+
         public FormUser()
         {
             InitializeComponent();
@@ -18,37 +21,57 @@ namespace MFAScreenLockApp
 
         private void FormUser_Load(object sender, EventArgs e)
         {
-
+            textBox_ComName.Text = Environment.MachineName;
+            textBox_UserName.Text = Environment.UserDomainName + "\\" + Environment.UserName;
+            textBox_ComNameB.Text = Settings.Default.MachineName == "" ? "未绑定" : Settings.Default.MachineName;
+            textBox_UserNameB.Text = Settings.Default.UserDomainName + "\\" + Settings.Default.UserName;
+            if (textBox_UserNameB.Text == "\\") textBox_UserNameB.Text = "未绑定";
+            isbind();
         }
 
-        /// <summary>
-        /// 生成二维码
-        /// </summary>
-        /// <param name="msg">信息</param>
-        /// <param name="version">版本 1 ~ 40</param>
-        /// <param name="pixel">像素点大小</param>
-        /// <param name="icon_path">图标路径</param>
-        /// <param name="icon_size">图标尺寸</param>
-        /// <param name="icon_border">图标边框厚度</param>
-        /// <param name="white_edge">二维码白边</param>
-        /// <returns>位图</returns>
-        public static Bitmap code(string msg, int version=5, int pixel=7, string icon_path=null, int icon_size=20, int icon_border=5, bool white_edge=true)
+        private bool isbind()
         {
-            QRCoder.QRCodeGenerator code_generator = new QRCoder.QRCodeGenerator();
-            QRCoder.QRCodeData code_data = code_generator.CreateQrCode(msg, QRCoder.QRCodeGenerator.ECCLevel.M/* 这里设置容错率的一个级别 */, true, true, QRCoder.QRCodeGenerator.EciMode.Utf8, version);
-            QRCoder.QRCode code = new QRCoder.QRCode(code_data);
-            
-            Bitmap bmp = null;
-            if (icon_path != null)
+            if (Settings.Default.MachineName == "")
             {
-                Bitmap icon = new Bitmap(icon_path);
-                bmp = code.GetGraphic(pixel, Color.Black, Color.White, icon, icon_size, icon_border, white_edge);
+                btn_bind.Enabled = true;
+                btn_bind.Visible = true;
+                btn_unbind.Enabled = false;
+                btn_unbind.Visible = false;
+                return false;
             }
             else
             {
-                bmp = code.GetGraphic(pixel, Color.Black, Color.White, white_edge);
+                btn_bind.Enabled = false;
+                btn_bind.Visible = false;
+                btn_unbind.Enabled = true;
+                btn_unbind.Visible = true;
+                return true;
             }
-            return bmp;
+        }
+
+        private void btn_bind_Click(object sender, EventArgs e)
+        {
+            FormQR formqr = new FormQR();
+            formqr.ShowDialog();
+            isbind();
+        }
+
+        private void btn_unbind_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_close_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void FormUser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isbind())
+            {
+                this.ws = 1;
+            }
         }
     }
 }
