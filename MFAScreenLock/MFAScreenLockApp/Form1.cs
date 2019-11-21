@@ -43,6 +43,13 @@ namespace MFAScreenLockApp
                         this.Hide();
                     }));
                 }
+                formuser.ws = 0;
+            }
+            else
+            {
+                FormLock formlock = new FormLock();
+                formlock.ShowDialog();
+                formlock.ws = 0;
             }
         }
 
@@ -53,7 +60,24 @@ namespace MFAScreenLockApp
 
         private void 账户管理UToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            if (Properties.Settings.Default.MachineName == "")
+            {
+                FormUser formuser = new FormUser();
+                formuser.ShowDialog();
+                formuser.ws = 0;
+            }
+            else
+            {
+                FormLock formlock = new FormLock();
+                formlock.ShowDialog();
+                if (formlock.ws == 1)
+                {
+                    FormUser formuser = new FormUser();
+                    formuser.ShowDialog();
+                    formuser.ws = 0;
+                }
+                formlock.ws = 0;
+            }
         }
 
         private void 立即锁定LToolStripMenuItem_Click(object sender, EventArgs e)
