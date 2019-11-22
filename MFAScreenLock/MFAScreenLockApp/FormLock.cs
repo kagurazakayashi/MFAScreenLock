@@ -9,24 +9,22 @@ using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
 using Google.Authenticator;
+using MFAScreenLockApp.Properties;
 
 namespace MFAScreenLockApp
 {
     public partial class FormLock : Form
     {
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern bool SystemParametersInfo(uint uAction, uint uParam, StringBuilder lpvParam, uint init);
-        const uint SPI_GETDESKWALLPAPER = 0x0073;
-
-        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = System.Runtime.InteropServices.CharSet.Auto, ExactSpelling = true)]
+        [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
         public static extern IntPtr GetForegroundWindow(); //获得本窗体的句柄
-        [System.Runtime.InteropServices.DllImport("user32.dll", EntryPoint = "SetForegroundWindow")]
+        [DllImport("user32.dll", EntryPoint = "SetForegroundWindow")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);//设置此窗体为活动窗体
         public IntPtr Handle1;
 
         public int ws = 0;
         private TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
         private HotKeyHandler hook = new HotKeyHandler();
+        public Bitmap wallPaperbmp = null;
 
         public FormLock()
         {
@@ -35,21 +33,25 @@ namespace MFAScreenLockApp
 
         private void FormLock_Load(object sender, EventArgs e)
         {
+            if (Properties.Settings.Default.AccountSecretKey == "")
+            {
+                ws = 1;
+                this.Hide();
+                return;
+            }
             hook.HookStart();
             Handle1 = this.Handle;
             lbl_user.Text = Environment.UserName;
             updatedate();
-            StringBuilder wallPaperPath = new StringBuilder(200);
-            if (SystemParametersInfo(SPI_GETDESKWALLPAPER, 200, wallPaperPath, 0))
+            if (wallPaperbmp != null)
             {
-                string wallPaper = wallPaperPath.ToString();
-                if (wallPaper.Length > 0)
+                double wallPaperlig = CalculateAverageLightness(wallPaperbmp);
+                if (wallPaperlig > 0.5)
                 {
-                    Bitmap wallPaperbmp = new Bitmap(wallPaper);
-                    double wallPaperlig = CalculateAverageLightness(wallPaperbmp);
-                    if (wallPaperlig > 0.5) this.ForeColor = Color.Black;
-                    this.BackgroundImage = wallPaperbmp;
+                    this.ForeColor = Color.Black;
+                    userimage.BackgroundImage = Resources.ic_account_circle_black_48dp;
                 }
+                this.BackgroundImage = wallPaperbmp;
             }
             txt_pwdcode.Focus();
         }
@@ -119,11 +121,30 @@ namespace MFAScreenLockApp
             txt_pwdcode.Focus();
         }
 
+        private bool pass(string pwd, string key = "")
+        {
+            if (Settings.Default.AccountSecretKey.Length == 0) return true;
+            if (pwd.Length == 0) return false;
+            if (Settings.Default.MachineName != Environment.MachineName) return false;
+            if (Settings.Default.UserDomainName != Environment.UserDomainName) return false;
+            if (Settings.Default.UserName != Environment.UserName) return false;
+            if (key.Length == 0) key = Settings.Default.AccountSecretKey;
+            return tfa.ValidateTwoFactorPIN(key, pwd);
+        }
+
         private void txt_pwdcode_TextChanged(object sender, EventArgs e)
         {
             if (txt_pwdcode.Text.Length == 6)
             {
-                if (tfa.ValidateTwoFactorPIN(Properties.Settings.Default.AccountSecretKey, txt_pwdcode.Text))
+                if (pass(txt_pwdcode.Text))
+                {
+                    ws = 1;
+                    this.Hide();
+                }
+            }
+            else if (txt_pwdcode.Text.Length == txt_pwdcode.MaxLength)
+            {
+                if (txt_pwdcode.Text == Settings.Default.RecoveryCode)
                 {
                     ws = 1;
                     this.Hide();
@@ -134,12 +155,12 @@ namespace MFAScreenLockApp
         private void timer1_Tick(object sender, EventArgs e)
         {
             updatedate();
+            this.Focus();
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
             this.TopMost = true;
-            this.Focus();
             if (Handle1 != GetForegroundWindow())
             {
                 SetForegroundWindow(Handle1);

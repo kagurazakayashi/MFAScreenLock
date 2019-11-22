@@ -36,6 +36,9 @@
     <Prefer32Bit>false</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon0.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Google.Authenticator, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\GoogleAuthenticator.1.2.1\lib\net40\Google.Authenticator.dll</HintPath>
@@ -68,6 +71,12 @@
     <Compile Include="FormLock.Designer.cs">
       <DependentUpon>FormLock.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormLockSub.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormLockSub.Designer.cs">
+      <DependentUpon>FormLockSub.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormQR.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,6 +97,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormLock.resx">
       <DependentUpon>FormLock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormLockSub.resx">
+      <DependentUpon>FormLockSub.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormQR.resx">
       <DependentUpon>FormQR.cs</DependentUpon>
@@ -143,6 +155,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ic_account_circle_white_48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ic_account_circle_black_48dp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon0.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("MFAScreenLockApp")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("雅诗动态密码锁定工具")]
+[assembly: AssemblyDescription("使用谷歌验证器锁定电脑")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MFAScreenLockApp")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyCompany("北京篝火网络科技有限公司")]
+[assembly: AssemblyProduct("霄霄设备锁定器4")]
+[assembly: AssemblyCopyright("https://github.com/kagurazakayashi/MFAScreenLock/blob/master/LICENSE")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

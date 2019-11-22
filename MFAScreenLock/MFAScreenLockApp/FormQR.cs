@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Google.Authenticator;
+using MFAScreenLockApp.Properties;
 using QRCodeEncoderLibrary;
 
 
@@ -59,13 +60,8 @@ namespace MFAScreenLockApp
         {
             if (tfa.ValidateTwoFactorPIN(secretKey, txt_code.Text))
             {
-                Properties.Settings.Default.MachineName = Environment.MachineName;
-                Properties.Settings.Default.UserDomainName = Environment.UserDomainName;
-                Properties.Settings.Default.UserName = Environment.UserName;
-                Properties.Settings.Default.AccountSecretKey = secretKey;
-                Properties.Settings.Default.Date = DateTime.Now;
                 string recoveryCode = GenerateRandom(30);
-                DialogResult result = MessageBox.Show("以下是您的恢复代码，如果手机遗失或故障，可以用此代码进行恢复。\n请妥善保存此代码，在无法输入动态密码时将可以用此代码解锁。\n\n" + recoveryCode + "\n\n「是」：将此代码复制到剪贴板\n「否」：不要复制到剪贴板并继续\n「取消」：我不需要此代码（请多加小心）", "恢复代码", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("以下是您的恢复代码，如果手机遗失或故障，可以用此代码进行恢复。\n请妥善保存此代码，在无法输入动态密码时将可以用此代码解锁。\n\n" + recoveryCode + "\n\n「是」：创建此代码并复制到剪贴板，可以用此代码进行恢复。\n「否」：我不需要此代码，一旦卸载APP或设备丢失将无法解锁", "恢复代码", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
                 bool isok = false;
                 if (result == DialogResult.Yes)
                 {
@@ -78,11 +74,16 @@ namespace MFAScreenLockApp
                 }
                 if (isok)
                 {
-                    Properties.Settings.Default.RecoveryCode = recoveryCode;
-                    Properties.Settings.Default.Save();
+                    Settings.Default.MachineName = Environment.MachineName;
+                    Settings.Default.UserDomainName = Environment.UserDomainName;
+                    Settings.Default.UserName = Environment.UserName;
+                    Settings.Default.AccountSecretKey = secretKey;
+                    Settings.Default.Date = DateTime.Now;
+                    Settings.Default.RecoveryCode = recoveryCode;
+                    Settings.Default.Save();
                 }
                 secretKey = "";
-                this.Hide();
+                if (result != DialogResult.Cancel) this.Hide();
             }
             else
             {
@@ -131,6 +132,19 @@ namespace MFAScreenLockApp
             {
                 lbl_codeisok.Text = "6 位数字";
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            DateTime now = DateTime.Now;
+            int offset = TimeZone.CurrentTimeZone.GetUtcOffset(now).Hours;
+            string sign = "";
+            if (offset > 0)
+            {
+                sign = "+";
+            }
+            string zone = "GMT" + sign + offset;
+            lbl_info.Text = "日期：" + now.ToLongDateString() + "\n时间：" + now.ToLongTimeString() + "\n时区：" + zone + " 区";
         }
     }
 }

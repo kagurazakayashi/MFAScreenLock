@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQR));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.img_qr = new System.Windows.Forms.PictureBox();
@@ -40,11 +41,15 @@
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lbl_info = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.img_qr)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -93,7 +98,7 @@
             this.groupBox3.Controls.Add(this.button2);
             this.groupBox3.Controls.Add(this.txt_code);
             this.groupBox3.Controls.Add(this.button1);
-            this.groupBox3.Location = new System.Drawing.Point(435, 118);
+            this.groupBox3.Location = new System.Drawing.Point(435, 276);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(360, 153);
             this.groupBox3.TabIndex = 2;
@@ -151,26 +156,53 @@
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label2.Location = new System.Drawing.Point(6, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(348, 124);
+            this.label2.Size = new System.Drawing.Size(771, 90);
             this.label2.TabIndex = 3;
-            this.label2.Text = "· 进行绑定后，不要修改用户名、网域和计算机名称，这会导致无法通过验证，无法登录！\r\n· 不要将安装后的文件夹直接拷贝，可能会泄露您的 Key 造成密码风险，同时" +
-    "可能将他人电脑直接所动。\r\n· 请设置好本软件的设置文件权限，防止被其他用户访问到本程序的设置文件而泄露 Key 。";
+            this.label2.Text = "· 进行绑定后，不要修改用户名、网域和计算机名称，修改前请先解绑，否则会导致无法登录！\r\n· 动态密码基于时间生成，设备和手机必须处于同一时区和时间，建议开启系统" +
+    "自动对时功能！\r\n· 不要将安装后的文件夹直接拷贝，可能会泄露您的 Key 造成密码风险，同时可能将他人电脑直接所动。\r\n· 请设置好本软件的设置文件权限，防止" +
+    "被其他用户访问到本程序的设置文件而泄露 Key 。";
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.label2);
-            this.groupBox4.Location = new System.Drawing.Point(435, 277);
+            this.groupBox4.Location = new System.Drawing.Point(12, 435);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(360, 149);
+            this.groupBox4.Size = new System.Drawing.Size(783, 118);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "注意事项";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.lbl_info);
+            this.groupBox5.Location = new System.Drawing.Point(435, 118);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(360, 152);
+            this.groupBox5.TabIndex = 5;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "请核对以下信息是否和手机完全同步";
+            // 
+            // lbl_info
+            // 
+            this.lbl_info.Font = new System.Drawing.Font("微软雅黑", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbl_info.Location = new System.Drawing.Point(8, 22);
+            this.lbl_info.Name = "lbl_info";
+            this.lbl_info.Size = new System.Drawing.Size(346, 127);
+            this.lbl_info.TabIndex = 0;
+            this.lbl_info.Text = "正在载入...";
+            this.lbl_info.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FormQR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(807, 441);
+            this.ClientSize = new System.Drawing.Size(807, 564);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -190,6 +222,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -207,5 +240,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label lbl_codeisok;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label lbl_info;
+        private System.Windows.Forms.Timer timer1;
     }
 }
