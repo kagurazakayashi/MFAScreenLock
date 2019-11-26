@@ -62,18 +62,9 @@ namespace MFAScreenLockApp
             {
                 string recoveryCode = GenerateRandom(30);
                 DialogResult result = MessageBox.Show("以下是您的恢复代码，如果手机遗失或故障，可以用此代码进行恢复。\n请妥善保存此代码，在无法输入动态密码时将可以用此代码解锁。\n\n" + recoveryCode + "\n\n「是」：创建此代码并复制到剪贴板，可以用此代码进行恢复。\n「否」：我不需要此代码，一旦卸载APP或设备丢失将无法解锁", "恢复代码", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
-                bool isok = false;
                 if (result == DialogResult.Yes)
                 {
                     Clipboard.SetDataObject(recoveryCode);
-                    isok = true;
-                }
-                else if (result == DialogResult.No)
-                {
-                    isok = true;
-                }
-                if (isok)
-                {
                     Settings.Default.MachineName = Environment.MachineName;
                     Settings.Default.UserDomainName = Environment.UserDomainName;
                     Settings.Default.UserName = Environment.UserName;
@@ -82,8 +73,11 @@ namespace MFAScreenLockApp
                     Settings.Default.RecoveryCode = recoveryCode;
                     Settings.Default.Save();
                 }
-                secretKey = "";
-                if (result != DialogResult.Cancel) this.Hide();
+                if (result != DialogResult.Cancel)
+                {
+                    secretKey = "";
+                    this.Hide();
+                }
             }
             else
             {

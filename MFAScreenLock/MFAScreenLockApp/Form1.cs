@@ -17,6 +17,7 @@ namespace MFAScreenLockApp
         const uint SPI_GETDESKWALLPAPER = 0x0073;
 
         private List<FormLockSub> formLockSubList = new List<FormLockSub>();
+        private string[] args;
 
         public Form1()
         {
@@ -26,15 +27,32 @@ namespace MFAScreenLockApp
         private void Form1_Load(object sender, EventArgs e)
         {
             this.BeginInvoke(new Action(() => {
-                //this.Hide();
+                this.Hide();
             }));
+            string programname = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
+            System.Diagnostics.Process[] myProcesses = System.Diagnostics.Process.GetProcessesByName(programname);//获取指定的进程名   
+            if (myProcesses.Length > 1) //如果可以获取到知道的进程名则说明已经启动
+            {
+                MessageBox.Show("程序已经启动，请查看任务栏中的图标。\n在图标上点击右键可以打开菜单。\n如果不需要验证后驻留后台，请添加 -e 参数。","程序已在运行",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                notifyIcon1.Visible = false;
+                Application.Exit();
+            }
+            args = Environment.GetCommandLineArgs();
             loadConfig();
         }
 
         private void loadConfig()
         {
-            //Properties.Settings.Default.Reset();
-            //bool one = Properties.Settings.Default.one;
+            if (args.Length > 2 && args[1] == "-r" && args[2] == Properties.Settings.Default.RecoveryCode)
+            {
+                DialogResult result = MessageBox.Show("你使用了一个有效的恢复代码。\n你要清除本程序绑定的验证器吗？\n清除后，本程序将立即清除所有设置并退出。", "恢复模式", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    Properties.Settings.Default.Reset();
+                }
+                notifyIcon1.Visible = false;
+                Application.Exit();
+            }
             if (Properties.Settings.Default.MachineName == "")
             {
                 FormUser formuser = new FormUser();
@@ -46,6 +64,11 @@ namespace MFAScreenLockApp
                 }
                 else
                 {
+                    if (args.Length > 1 && args[1] == "-e")
+                    {
+                        notifyIcon1.Visible = false;
+                        Application.Exit();
+                    }
                     this.BeginInvoke(new Action(() => {
                         this.Hide();
                     }));
@@ -67,6 +90,11 @@ namespace MFAScreenLockApp
             formlock.ShowDialog();
             formlock.ws = 0;
             lockallscreen(false, wallPaperbmp);
+            if (args.Length > 1 && args[1] == "-e")
+            {
+                notifyIcon1.Visible = false;
+                Application.Exit();
+            }
         }
 
         private Bitmap getwallPaper()

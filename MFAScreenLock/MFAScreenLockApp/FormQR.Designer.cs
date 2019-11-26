@@ -117,6 +117,7 @@
             // 
             // button2
             // 
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button2.Image = global::MFAScreenLockApp.Properties.Resources.ic_close_2x;
             this.button2.Location = new System.Drawing.Point(215, 70);
             this.button2.Name = "button2";
@@ -199,8 +200,10 @@
             // 
             // FormQR
             // 
+            this.AcceptButton = this.button1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.button2;
             this.ClientSize = new System.Drawing.Size(807, 564);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
