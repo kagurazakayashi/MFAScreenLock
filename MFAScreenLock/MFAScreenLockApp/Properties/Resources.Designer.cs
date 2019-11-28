@@ -153,6 +153,16 @@ namespace MFAScreenLockApp.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap ic_settings_2x {
+            get {
+                object obj = ResourceManager.GetObject("ic_settings_2x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap icon0_128px {
             get {
                 object obj = ResourceManager.GetObject("icon0-128px", resourceCulture);

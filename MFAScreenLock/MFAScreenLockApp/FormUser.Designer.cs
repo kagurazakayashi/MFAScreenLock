@@ -28,22 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUser));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox_ComName = new System.Windows.Forms.TextBox();
             this.textBox_UserName = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btn_bind = new System.Windows.Forms.Button();
-            this.btn_unbind = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox_ComNameB = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox_UserNameB = new System.Windows.Forms.TextBox();
-            this.btn_close = new System.Windows.Forms.Button();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_bind = new System.Windows.Forms.Button();
+            this.btn_unbind = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lbl_timeout = new System.Windows.Forms.Label();
+            this.prog_timeout = new System.Windows.Forms.ProgressBar();
+            this.label7 = new System.Windows.Forms.Label();
+            this.num_timeout = new System.Windows.Forms.NumericUpDown();
+            this.check_timeoutenable = new System.Windows.Forms.CheckBox();
+            this.check_loginstart = new System.Windows.Forms.CheckBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_timeout)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -71,7 +88,7 @@
             this.textBox_ComName.Enabled = false;
             this.textBox_ComName.Location = new System.Drawing.Point(134, 25);
             this.textBox_ComName.Name = "textBox_ComName";
-            this.textBox_ComName.Size = new System.Drawing.Size(271, 26);
+            this.textBox_ComName.Size = new System.Drawing.Size(440, 26);
             this.textBox_ComName.TabIndex = 5;
             this.textBox_ComName.Text = "未知";
             // 
@@ -82,7 +99,7 @@
             this.textBox_UserName.Enabled = false;
             this.textBox_UserName.Location = new System.Drawing.Point(134, 57);
             this.textBox_UserName.Name = "textBox_UserName";
-            this.textBox_UserName.Size = new System.Drawing.Size(271, 26);
+            this.textBox_UserName.Size = new System.Drawing.Size(440, 26);
             this.textBox_UserName.TabIndex = 6;
             this.textBox_UserName.Text = "未知";
             // 
@@ -94,44 +111,12 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.textBox_UserName);
-            this.groupBox2.Location = new System.Drawing.Point(12, 12);
+            this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(411, 99);
+            this.groupBox2.Size = new System.Drawing.Size(580, 99);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "登录信息";
-            // 
-            // btn_bind
-            // 
-            this.btn_bind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_bind.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_bind.Enabled = false;
-            this.btn_bind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_on_2x;
-            this.btn_bind.Location = new System.Drawing.Point(12, 229);
-            this.btn_bind.Name = "btn_bind";
-            this.btn_bind.Size = new System.Drawing.Size(197, 72);
-            this.btn_bind.TabIndex = 2;
-            this.btn_bind.Text = "绑定(&B)";
-            this.btn_bind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btn_bind.UseVisualStyleBackColor = true;
-            this.btn_bind.Visible = false;
-            this.btn_bind.Click += new System.EventHandler(this.btn_bind_Click);
-            // 
-            // btn_unbind
-            // 
-            this.btn_unbind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_unbind.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_unbind.Enabled = false;
-            this.btn_unbind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_off_2x;
-            this.btn_unbind.Location = new System.Drawing.Point(17, 229);
-            this.btn_unbind.Name = "btn_unbind";
-            this.btn_unbind.Size = new System.Drawing.Size(192, 72);
-            this.btn_unbind.TabIndex = 7;
-            this.btn_unbind.Text = "解绑(&U)";
-            this.btn_unbind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btn_unbind.UseVisualStyleBackColor = true;
-            this.btn_unbind.Visible = false;
-            this.btn_unbind.Click += new System.EventHandler(this.btn_unbind_Click);
+            this.groupBox2.Text = "当前系统登录信息";
             // 
             // groupBox1
             // 
@@ -141,12 +126,12 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.textBox_UserNameB);
-            this.groupBox1.Location = new System.Drawing.Point(12, 117);
+            this.groupBox1.Location = new System.Drawing.Point(6, 111);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(411, 99);
+            this.groupBox1.Size = new System.Drawing.Size(580, 99);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "绑定信息";
+            this.groupBox1.Text = "已经录的绑定信息";
             // 
             // textBox_ComNameB
             // 
@@ -155,7 +140,7 @@
             this.textBox_ComNameB.Enabled = false;
             this.textBox_ComNameB.Location = new System.Drawing.Point(134, 25);
             this.textBox_ComNameB.Name = "textBox_ComNameB";
-            this.textBox_ComNameB.Size = new System.Drawing.Size(271, 26);
+            this.textBox_ComNameB.Size = new System.Drawing.Size(440, 26);
             this.textBox_ComNameB.TabIndex = 5;
             this.textBox_ComNameB.Text = "未绑定";
             // 
@@ -184,49 +169,216 @@
             this.textBox_UserNameB.Enabled = false;
             this.textBox_UserNameB.Location = new System.Drawing.Point(134, 57);
             this.textBox_UserNameB.Name = "textBox_UserNameB";
-            this.textBox_UserNameB.Size = new System.Drawing.Size(271, 26);
+            this.textBox_UserNameB.Size = new System.Drawing.Size(440, 26);
             this.textBox_UserNameB.TabIndex = 6;
             this.textBox_UserNameB.Text = "未绑定";
             // 
-            // btn_close
+            // tabControl1
             // 
-            this.btn_close.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_close.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_close.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btn_close.Image = global::MFAScreenLockApp.Properties.Resources.ic_close_2x;
-            this.btn_close.Location = new System.Drawing.Point(226, 229);
-            this.btn_close.Name = "btn_close";
-            this.btn_close.Size = new System.Drawing.Size(197, 72);
-            this.btn_close.TabIndex = 11;
-            this.btn_close.Text = "完成(&W)";
-            this.btn_close.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btn_close.UseVisualStyleBackColor = true;
-            this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(600, 336);
+            this.tabControl1.TabIndex = 12;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox2);
+            this.tabPage1.Controls.Add(this.btn_bind);
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Controls.Add(this.btn_unbind);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(592, 303);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "验证器应用绑定";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btn_bind
+            // 
+            this.btn_bind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_bind.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_bind.Enabled = false;
+            this.btn_bind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_on_2x;
+            this.btn_bind.Location = new System.Drawing.Point(389, 218);
+            this.btn_bind.Name = "btn_bind";
+            this.btn_bind.Size = new System.Drawing.Size(197, 72);
+            this.btn_bind.TabIndex = 2;
+            this.btn_bind.Text = "开始进行绑定 (&B)";
+            this.btn_bind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_bind.UseVisualStyleBackColor = true;
+            this.btn_bind.Visible = false;
+            this.btn_bind.Click += new System.EventHandler(this.btn_bind_Click);
+            // 
+            // btn_unbind
+            // 
+            this.btn_unbind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_unbind.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_unbind.Enabled = false;
+            this.btn_unbind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_off_2x;
+            this.btn_unbind.Location = new System.Drawing.Point(394, 218);
+            this.btn_unbind.Name = "btn_unbind";
+            this.btn_unbind.Size = new System.Drawing.Size(192, 72);
+            this.btn_unbind.TabIndex = 7;
+            this.btn_unbind.Text = "解除绑定 (&U)";
+            this.btn_unbind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_unbind.UseVisualStyleBackColor = true;
+            this.btn_unbind.Visible = false;
+            this.btn_unbind.Click += new System.EventHandler(this.btn_unbind_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.check_loginstart);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(592, 303);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "自动锁定设置";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.lbl_timeout);
+            this.groupBox3.Controls.Add(this.prog_timeout);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this.num_timeout);
+            this.groupBox3.Controls.Add(this.check_timeoutenable);
+            this.groupBox3.Location = new System.Drawing.Point(6, 57);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(580, 154);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "不活动时锁定";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(203, 68);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(23, 20);
+            this.label6.TabIndex = 10;
+            this.label6.Text = "秒";
+            // 
+            // lbl_timeout
+            // 
+            this.lbl_timeout.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbl_timeout.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_timeout.Location = new System.Drawing.Point(86, 68);
+            this.lbl_timeout.Name = "lbl_timeout";
+            this.lbl_timeout.Size = new System.Drawing.Size(111, 20);
+            this.lbl_timeout.TabIndex = 9;
+            this.lbl_timeout.Text = "0";
+            this.lbl_timeout.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // prog_timeout
+            // 
+            this.prog_timeout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.prog_timeout.Location = new System.Drawing.Point(19, 107);
+            this.prog_timeout.Maximum = 60000;
+            this.prog_timeout.Name = "prog_timeout";
+            this.prog_timeout.Size = new System.Drawing.Size(542, 23);
+            this.prog_timeout.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.prog_timeout.TabIndex = 8;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 68);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(65, 20);
+            this.label7.TabIndex = 7;
+            this.label7.Text = "已空闲：";
+            // 
+            // num_timeout
+            // 
+            this.num_timeout.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num_timeout.Location = new System.Drawing.Point(75, 30);
+            this.num_timeout.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.num_timeout.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_timeout.Name = "num_timeout";
+            this.num_timeout.Size = new System.Drawing.Size(44, 24);
+            this.num_timeout.TabIndex = 1;
+            this.num_timeout.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_timeout.ValueChanged += new System.EventHandler(this.num_timeout_ValueChanged);
+            // 
+            // check_timeoutenable
+            // 
+            this.check_timeoutenable.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.check_timeoutenable.Location = new System.Drawing.Point(20, 31);
+            this.check_timeoutenable.Name = "check_timeoutenable";
+            this.check_timeoutenable.Size = new System.Drawing.Size(554, 25);
+            this.check_timeoutenable.TabIndex = 2;
+            this.check_timeoutenable.Text = "空闲　　　　分钟后自动锁定 (&A)";
+            this.check_timeoutenable.UseVisualStyleBackColor = true;
+            this.check_timeoutenable.CheckedChanged += new System.EventHandler(this.check_timeoutenable_CheckedChanged);
+            // 
+            // check_loginstart
+            // 
+            this.check_loginstart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.check_loginstart.Location = new System.Drawing.Point(16, 18);
+            this.check_loginstart.Name = "check_loginstart";
+            this.check_loginstart.Size = new System.Drawing.Size(570, 24);
+            this.check_loginstart.TabIndex = 0;
+            this.check_loginstart.Text = "跟随 Windows 登录进行锁定（只对当前用户生效）（&L)";
+            this.check_loginstart.UseVisualStyleBackColor = true;
+            this.check_loginstart.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // FormUser
             // 
             this.AcceptButton = this.btn_bind;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btn_close;
-            this.ClientSize = new System.Drawing.Size(439, 313);
-            this.Controls.Add(this.btn_close);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.btn_bind);
-            this.Controls.Add(this.btn_unbind);
+            this.ClientSize = new System.Drawing.Size(624, 360);
+            this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormUser";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "用户密码管理";
+            this.Text = "MFAScreenLockApp - 配置 - 自动锁定计时器已暂停";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormUser_FormClosing);
             this.Load += new System.EventHandler(this.FormUser_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_timeout)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -244,6 +396,17 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBox_UserNameB;
-        private System.Windows.Forms.Button btn_close;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.CheckBox check_loginstart;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ProgressBar prog_timeout;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown num_timeout;
+        private System.Windows.Forms.CheckBox check_timeoutenable;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbl_timeout;
+        private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.TabControl tabControl1;
     }
 }

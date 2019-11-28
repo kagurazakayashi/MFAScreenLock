@@ -58,8 +58,9 @@ namespace MFAScreenLockApp
 
         private void updatedate()
         {
-            lbl_time.Text = DateTime.Now.ToString("t");
-            lbl_date.Text = DateTime.Now.ToString("D");
+            DateTime now = DateTime.Now;
+            lbl_time.Text = now.Hour.ToString().PadLeft(2, '0') + " : " + now.Minute.ToString().PadLeft(2, '0') + " : " + now.Second.ToString().PadLeft(2, '0');
+            lbl_date.Text = now.Year.ToString() + " 年 " + now.Month.ToString() + " 月 " + now.Day.ToString() + " 日 ";
         }
 
         public static double CalculateAverageLightness(Bitmap bm)

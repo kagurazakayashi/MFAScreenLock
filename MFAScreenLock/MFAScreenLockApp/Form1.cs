@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MFAScreenLockApp.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,19 @@ namespace MFAScreenLockApp
         static extern bool SystemParametersInfo(uint uAction, uint uParam, StringBuilder lpvParam, uint init);
         const uint SPI_GETDESKWALLPAPER = 0x0073;
 
+        internal struct LASTINPUTINFO
+        {
+            public uint cbSize;
+            public uint dwTime;
+        }
+
+        [DllImport("User32.dll")]
+        public static extern bool LockWorkStation();
+        [DllImport("User32.dll")]
+        private static extern bool GetLastInputInfo(ref LASTINPUTINFO Dummy);
+        [DllImport("Kernel32.dll")]
+        private static extern uint GetLastError();
+
         private List<FormLockSub> formLockSubList = new List<FormLockSub>();
         private string[] args;
 
@@ -29,6 +43,7 @@ namespace MFAScreenLockApp
             this.BeginInvoke(new Action(() => {
                 this.Hide();
             }));
+            版本ToolStripMenuItem.Text = "版本：" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string programname = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
             System.Diagnostics.Process[] myProcesses = System.Diagnostics.Process.GetProcessesByName(programname);//获取指定的进程名   
             if (myProcesses.Length > 1) //如果可以获取到知道的进程名则说明已经启动
@@ -39,22 +54,27 @@ namespace MFAScreenLockApp
             }
             args = Environment.GetCommandLineArgs();
             loadConfig();
+            if (Settings.Default.Timeout >= 60)
+            {
+                timer_lock.Enabled = true;
+            }
         }
 
         private void loadConfig()
         {
-            if (args.Length > 2 && args[1] == "-r" && args[2] == Properties.Settings.Default.RecoveryCode)
+            if (args.Length > 2 && args[1] == "-r" && args[2] == Settings.Default.RecoveryCode)
             {
                 DialogResult result = MessageBox.Show("你使用了一个有效的恢复代码。\n你要清除本程序绑定的验证器吗？\n清除后，本程序将立即清除所有设置并退出。", "恢复模式", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    Properties.Settings.Default.Reset();
+                    Settings.Default.Reset();
                 }
                 notifyIcon1.Visible = false;
                 Application.Exit();
             }
-            if (Properties.Settings.Default.MachineName == "")
+            if (Settings.Default.MachineName == "")
             {
+                timer_lock.Enabled = false;
                 FormUser formuser = new FormUser();
                 formuser.ShowDialog();
                 if (formuser.ws == 1)
@@ -74,6 +94,7 @@ namespace MFAScreenLockApp
                     }));
                 }
                 formuser.ws = 0;
+                timer_lock.Enabled = true;
             }
             else
             {
@@ -83,6 +104,7 @@ namespace MFAScreenLockApp
 
         private void locknow()
         {
+            timer_lock.Enabled = false;
             Bitmap wallPaperbmp = getwallPaper();
             lockallscreen(true, wallPaperbmp);
             FormLock formlock = new FormLock();
@@ -95,6 +117,7 @@ namespace MFAScreenLockApp
                 notifyIcon1.Visible = false;
                 Application.Exit();
             }
+            timer_lock.Enabled = true;
         }
 
         private Bitmap getwallPaper()
@@ -146,16 +169,25 @@ namespace MFAScreenLockApp
 
         private void 账户管理UToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.MachineName == "")
+            openconfig(1);
+        }
+
+        private void openconfig(Int16 tabindex = 0)
+        {
+            if (Settings.Default.MachineName == "")
             {
+                timer_lock.Enabled = false;
                 FormUser formuser = new FormUser();
+                formuser.tabControl1.SelectedIndex = tabindex;
                 formuser.ShowDialog();
                 formuser.ws = 0;
+                timer_lock.Enabled = true;
             }
             else
             {
                 Bitmap wallPaperbmp = getwallPaper();
                 lockallscreen(true, wallPaperbmp);
+                timer_lock.Enabled = false;
                 FormLock formlock = new FormLock();
                 formlock.lbl_info.Text = "正在修改绑定设置";
                 formlock.wallPaperbmp = wallPaperbmp;
@@ -163,10 +195,13 @@ namespace MFAScreenLockApp
                 lockallscreen(false, wallPaperbmp);
                 if (formlock.ws == 1)
                 {
+                    timer_lock.Enabled = false;
                     FormUser formuser = new FormUser();
+                    formuser.tabControl1.SelectedIndex = tabindex;
                     formuser.ShowDialog();
                     formuser.ws = 0;
                 }
+                timer_lock.Enabled = true;
                 formlock.ws = 0;
             }
         }
@@ -180,6 +215,7 @@ namespace MFAScreenLockApp
         {
             Bitmap wallPaperbmp = getwallPaper();
             lockallscreen(true, wallPaperbmp);
+            timer_lock.Enabled = false;
             FormLock formlock = new FormLock();
             formlock.lbl_info.Text = "正在尝试退出软件";
             formlock.wallPaperbmp = wallPaperbmp;
@@ -191,6 +227,60 @@ namespace MFAScreenLockApp
                 Application.Exit();
             }
             formlock.ws = 0;
+            timer_lock.Enabled = true;
+        }
+
+        private static uint GetIdleTime()
+        {
+            LASTINPUTINFO LastUserAction = new LASTINPUTINFO();
+            LastUserAction.cbSize = (uint)Marshal.SizeOf(LastUserAction);
+            GetLastInputInfo(ref LastUserAction);
+            return ((uint)Environment.TickCount - LastUserAction.dwTime);
+        }
+
+        private static long GetTickCount()
+        {
+            return Environment.TickCount;
+        }
+
+        private static long GetLastInputTime()
+        {
+            LASTINPUTINFO LastUserAction = new LASTINPUTINFO();
+            LastUserAction.cbSize = (uint)Marshal.SizeOf(LastUserAction);
+            if (!GetLastInputInfo(ref LastUserAction))
+            {
+                throw new Exception(GetLastError().ToString());
+            }
+
+            return LastUserAction.dwTime;
+        }
+
+        private void timer_lock_Tick(object sender, EventArgs e)
+        {
+            if (Settings.Default.TimeoutEnable == false)
+            {
+                timer_lock.Enabled = false;
+                return;
+            }
+            int timeoutcfg = Settings.Default.Timeout;
+            if (timeoutcfg >= 60 && GetIdleTime() > Settings.Default.Timeout * 1000.0)
+            {
+                locknow();
+            }
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            openconfig(0);
+        }
+
+        private void 帮助和关于HToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("将打开默认浏览器，访问位于 Github 上的仓库页面。是否继续？", "将打开网页", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                System.Diagnostics.Process.Start("https://github.com/kagurazakayashi/MFAScreenLock");
+            }
         }
     }
 }
