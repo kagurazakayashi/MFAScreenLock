@@ -44,6 +44,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lbl_info = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.img_qr)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -55,22 +56,27 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.img_qr);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(417, 417);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "使用验证器扫描二维码";
+            this.groupBox1.UseWaitCursor = true;
             // 
             // img_qr
             // 
             this.img_qr.BackColor = System.Drawing.Color.White;
-            this.img_qr.Location = new System.Drawing.Point(19, 25);
+            this.img_qr.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.img_qr.Location = new System.Drawing.Point(3, 22);
             this.img_qr.Name = "img_qr";
-            this.img_qr.Size = new System.Drawing.Size(380, 380);
+            this.img_qr.Size = new System.Drawing.Size(411, 392);
             this.img_qr.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.img_qr.TabIndex = 0;
             this.img_qr.TabStop = false;
+            this.img_qr.UseWaitCursor = true;
+            this.img_qr.Visible = false;
             // 
             // groupBox2
             // 
@@ -81,6 +87,7 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "或手工输入密钥绑定";
+            this.groupBox2.UseWaitCursor = true;
             // 
             // lbl_EntryKey
             // 
@@ -89,8 +96,9 @@
             this.lbl_EntryKey.Name = "lbl_EntryKey";
             this.lbl_EntryKey.Size = new System.Drawing.Size(348, 75);
             this.lbl_EntryKey.TabIndex = 0;
-            this.lbl_EntryKey.Text = "--";
+            this.lbl_EntryKey.Text = "正在创建...";
             this.lbl_EntryKey.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_EntryKey.UseWaitCursor = true;
             // 
             // groupBox3
             // 
@@ -104,6 +112,7 @@
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "输入验证器上显示的密码";
+            this.groupBox3.UseWaitCursor = true;
             // 
             // lbl_codeisok
             // 
@@ -114,6 +123,7 @@
             this.lbl_codeisok.TabIndex = 6;
             this.lbl_codeisok.Text = "6 位数字";
             this.lbl_codeisok.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbl_codeisok.UseWaitCursor = true;
             // 
             // button2
             // 
@@ -123,13 +133,15 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(139, 72);
             this.button2.TabIndex = 5;
-            this.button2.Text = "取消";
+            this.button2.Text = "取消(&C)";
             this.button2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.UseWaitCursor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // txt_code
             // 
+            this.txt_code.Enabled = false;
             this.txt_code.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_code.Location = new System.Drawing.Point(12, 25);
             this.txt_code.MaxLength = 6;
@@ -137,18 +149,21 @@
             this.txt_code.Size = new System.Drawing.Size(197, 39);
             this.txt_code.TabIndex = 4;
             this.txt_code.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt_code.UseWaitCursor = true;
             this.txt_code.TextChanged += new System.EventHandler(this.txt_code_TextChanged);
             // 
             // button1
             // 
+            this.button1.Enabled = false;
             this.button1.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_on_2x;
             this.button1.Location = new System.Drawing.Point(12, 70);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(197, 72);
             this.button1.TabIndex = 3;
-            this.button1.Text = "完成绑定";
+            this.button1.Text = "完成绑定(&B)";
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.UseWaitCursor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
@@ -162,6 +177,7 @@
             this.label2.Text = "· 进行绑定后，不要修改用户名、网域和计算机名称，修改前请先解绑，否则会导致无法登录！\r\n· 动态密码基于时间生成，设备和手机必须处于同一时区和时间，建议开启系统" +
     "自动对时功能！\r\n· 不要将安装后的文件夹直接拷贝，可能会泄露您的 Key 造成密码风险，同时可能将他人电脑直接所动。\r\n· 请设置好本软件的设置文件权限，防止" +
     "被其他用户访问到本程序的设置文件而泄露 Key 。";
+            this.label2.UseWaitCursor = true;
             // 
             // groupBox4
             // 
@@ -172,6 +188,7 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "注意事项";
+            this.groupBox4.UseWaitCursor = true;
             // 
             // groupBox5
             // 
@@ -182,6 +199,7 @@
             this.groupBox5.TabIndex = 5;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "请核对以下信息是否和手机完全同步";
+            this.groupBox5.UseWaitCursor = true;
             // 
             // lbl_info
             // 
@@ -190,13 +208,24 @@
             this.lbl_info.Name = "lbl_info";
             this.lbl_info.Size = new System.Drawing.Size(346, 127);
             this.lbl_info.TabIndex = 0;
-            this.lbl_info.Text = "正在载入...";
             this.lbl_info.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbl_info.UseWaitCursor = true;
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Location = new System.Drawing.Point(3, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(411, 392);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "请稍候";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.UseWaitCursor = true;
             // 
             // FormQR
             // 
@@ -218,6 +247,7 @@
             this.Name = "FormQR";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "绑定和验证";
+            this.UseWaitCursor = true;
             this.Load += new System.EventHandler(this.FormQR_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.img_qr)).EndInit();
@@ -246,5 +276,6 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label lbl_info;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label label1;
     }
 }

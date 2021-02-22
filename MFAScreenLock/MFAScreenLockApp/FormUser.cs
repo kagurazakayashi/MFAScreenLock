@@ -71,9 +71,11 @@ namespace MFAScreenLockApp
 
         private void btn_bind_Click(object sender, EventArgs e)
         {
+            btn_bind.Enabled = false;
             FormQR formqr = new FormQR();
             formqr.ShowDialog();
             isbind();
+            btn_bind.Enabled = true;
         }
 
         private void btn_unbind_Click(object sender, EventArgs e)

@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace MFAScreenLockApp
 {
-    public partial class FormLockSub : Form
+    public partial class FormWorking : Form
     {
-        public FormLockSub()
+        public FormWorking()
         {
             InitializeComponent();
-        }
-
-        private void FormLockSub_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

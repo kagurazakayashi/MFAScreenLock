@@ -29,10 +29,12 @@ namespace MFAScreenLockApp
         public FormLock()
         {
             InitializeComponent();
+            //tableLayoutPanel2.BackColor = Color.FromArgb(0, tableLayoutPanel2.BackColor);
         }
 
         private void FormLock_Load(object sender, EventArgs e)
         {
+            tableLayoutPanel2.Parent = bgImg;
             if (Properties.Settings.Default.AccountSecretKey == "")
             {
                 ws = 1;
@@ -51,7 +53,7 @@ namespace MFAScreenLockApp
                     this.ForeColor = Color.Black;
                     userimage.BackgroundImage = Resources.ic_account_circle_black_48dp;
                 }
-                this.BackgroundImage = wallPaperbmp;
+                this.bgImg.Image = wallPaperbmp;
             }
             txt_pwdcode.Focus();
         }
@@ -59,7 +61,7 @@ namespace MFAScreenLockApp
         private void updatedate()
         {
             DateTime now = DateTime.Now;
-            lbl_time.Text = now.Hour.ToString().PadLeft(2, '0') + " : " + now.Minute.ToString().PadLeft(2, '0') + " : " + now.Second.ToString().PadLeft(2, '0');
+            lbl_time.Text = now.Hour.ToString().PadLeft(2, '0') + ":" + now.Minute.ToString().PadLeft(2, '0') + ":" + now.Second.ToString().PadLeft(2, '0');
             lbl_date.Text = now.Year.ToString() + " 年 " + now.Month.ToString() + " 月 " + now.Day.ToString() + " 日 ";
         }
 

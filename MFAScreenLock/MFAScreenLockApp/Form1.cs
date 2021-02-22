@@ -148,7 +148,7 @@ namespace MFAScreenLockApp
                     locksub.Left = area.Left;
                     locksub.Show();
                     locksub.WindowState = FormWindowState.Maximized;
-                    locksub.BackgroundImage = wallPaperbmp;
+                    locksub.bgImg.Image = wallPaperbmp;
                     formLockSubList.Add(locksub);
                 }
             }

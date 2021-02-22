@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -17,6 +18,7 @@ namespace MFAScreenLockApp
     {
         private string secretKey = "";
         private TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
+        private bool isinit = false;
 
         public FormQR()
         {
@@ -25,19 +27,6 @@ namespace MFAScreenLockApp
 
         private void FormQR_Load(object sender, EventArgs e)
         {
-            string totpSecretKey = Guid.NewGuid().ToString("N").Substring(0, 10);
-            var tfa = new TwoFactorAuthenticator();
-            string computername = Environment.MachineName;
-            string username = Environment.UserName;
-            var setupInfo = tfa.GenerateSetupCode(computername, username, totpSecretKey, 380, 380);
-            string otpauth = "otpauth://totp/"+ Environment.UserDomainName + ":" + setupInfo.Account + "?secret=" + setupInfo.ManualEntryKey + "&issuer=" + computername;
-            //string url = setupInfo.QrCodeSetupImageUrl;
-            //string[] urlarr = url.Split('=');
-            //url = urlarr[urlarr.Length - 1];
-            //url = System.Web.HttpUtility.UrlDecode(url);
-            lbl_EntryKey.Text = setupInfo.ManualEntryKey;
-            secretKey = setupInfo.AccountSecretKey;
-            img_qr.Image = qrcode(otpauth);
         }
 
         private Bitmap qrcode(string url)
@@ -53,7 +42,7 @@ namespace MFAScreenLockApp
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            this.Close();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -65,6 +54,9 @@ namespace MFAScreenLockApp
                 if (result == DialogResult.Yes)
                 {
                     Clipboard.SetDataObject(recoveryCode);
+                }
+                if (result != DialogResult.Cancel)
+                {
                     Settings.Default.MachineName = Environment.MachineName;
                     Settings.Default.UserDomainName = Environment.UserDomainName;
                     Settings.Default.UserName = Environment.UserName;
@@ -73,11 +65,8 @@ namespace MFAScreenLockApp
                     Settings.Default.RecoveryCode = recoveryCode;
                     Settings.Default.Save();
                 }
-                if (result != DialogResult.Cancel)
-                {
-                    secretKey = "";
-                    this.Hide();
-                }
+                secretKey = "";
+                this.Close();
             }
             else
             {
@@ -128,8 +117,36 @@ namespace MFAScreenLockApp
             }
         }
 
+        private string numLen2(int num)
+        {
+            NumberFormatInfo nfi = new NumberFormatInfo();
+            nfi.NumberDecimalDigits = 0;
+            if (num < 10)
+            {
+                return "0" + Convert.ToString(num, nfi);
+            }
+            return Convert.ToString(num, nfi);
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (!isinit)
+            {
+                string totpSecretKey = Guid.NewGuid().ToString("N").Substring(0, 10);
+                var tfa = new TwoFactorAuthenticator();
+                string computername = Environment.MachineName;
+                string username = Environment.UserName;
+                var setupInfo = tfa.GenerateSetupCode(username, computername, totpSecretKey, false, 380);
+                string otpauth = "otpauth://totp/" + Environment.UserDomainName + ":" + setupInfo.Account + "?secret=" + setupInfo.ManualEntryKey + "&issuer=" + computername;
+                lbl_EntryKey.Text = setupInfo.ManualEntryKey;
+                secretKey = totpSecretKey;
+                img_qr.Image = qrcode(otpauth);
+                img_qr.Visible = true;
+                txt_code.Enabled = true;
+                button1.Enabled = true;
+                isinit = true;
+                UseWaitCursor = false;
+            }
             DateTime now = DateTime.Now;
             int offset = TimeZone.CurrentTimeZone.GetUtcOffset(now).Hours;
             string sign = "";
@@ -138,7 +155,9 @@ namespace MFAScreenLockApp
                 sign = "+";
             }
             string zone = "GMT" + sign + offset;
-            lbl_info.Text = "日期：" + now.ToLongDateString() + "\n时间：" + now.ToLongTimeString() + "\n时区：" + zone + " 区";
+            string date = now.Year + " 年 " + numLen2(now.Month) + " 月 " + numLen2(now.Day) + " 日 ";
+            string time = numLen2(now.Hour) + " 时 " + numLen2(now.Minute) + " 分 " + numLen2(now.Second) + " 秒 ";
+            lbl_info.Text = "日期：" + date + "\n时间：" + time + "\n时区：" + zone + " 区";
         }
     }
 }
