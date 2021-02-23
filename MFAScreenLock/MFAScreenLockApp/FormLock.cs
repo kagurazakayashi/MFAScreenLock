@@ -24,7 +24,9 @@ namespace MFAScreenLockApp
         public int ws = 0;
         private TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
         private HotKeyHandler hook = new HotKeyHandler();
-        public Bitmap wallPaperbmp = null;
+        public Bitmap wallPaperBmp = null;
+        private Image wallPaperImg = null;
+        private double wallPaperlig = -1;
 
         public FormLock()
         {
@@ -34,26 +36,29 @@ namespace MFAScreenLockApp
 
         private void FormLock_Load(object sender, EventArgs e)
         {
-            tableLayoutPanel2.Parent = bgImg;
-            if (Properties.Settings.Default.AccountSecretKey == "")
+            if (Settings.Default.AccountSecretKey == "")
             {
                 ws = 1;
-                this.Hide();
+                Close();
                 return;
             }
             hook.HookStart();
             Handle1 = this.Handle;
             lbl_user.Text = Environment.UserName;
             updatedate();
-            if (wallPaperbmp != null)
+            if (wallPaperBmp != null)
             {
-                double wallPaperlig = CalculateAverageLightness(wallPaperbmp);
+                if (wallPaperlig == -1)
+                {
+                    wallPaperlig = ImageControl.CalculateAverageLightness(wallPaperBmp);
+                }
                 if (wallPaperlig > 0.5)
                 {
                     this.ForeColor = Color.Black;
                     userimage.BackgroundImage = Resources.ic_account_circle_black_48dp;
                 }
-                this.bgImg.Image = wallPaperbmp;
+                wallPaperImg = ImageControl.scaleBitmap(wallPaperBmp, Size.Width, Size.Height);
+                BackgroundImage = wallPaperImg;
             }
             txt_pwdcode.Focus();
         }
@@ -63,40 +68,6 @@ namespace MFAScreenLockApp
             DateTime now = DateTime.Now;
             lbl_time.Text = now.Hour.ToString().PadLeft(2, '0') + ":" + now.Minute.ToString().PadLeft(2, '0') + ":" + now.Second.ToString().PadLeft(2, '0');
             lbl_date.Text = now.Year.ToString() + " 年 " + now.Month.ToString() + " 月 " + now.Day.ToString() + " 日 ";
-        }
-
-        public static double CalculateAverageLightness(Bitmap bm)
-        {
-            double lum = 0;
-            var tmpBmp = new Bitmap(bm);
-            var width = bm.Width;
-            var height = bm.Height;
-            var bppModifier = bm.PixelFormat == PixelFormat.Format24bppRgb ? 3 : 4;
-
-            var srcData = tmpBmp.LockBits(new Rectangle(0, 0, bm.Width, bm.Height), ImageLockMode.ReadOnly, bm.PixelFormat);
-            var stride = srcData.Stride;
-            var scan0 = srcData.Scan0;
-
-            //Luminance (standard, objective): (0.2126*R) + (0.7152*G) + (0.0722*B)
-            //Luminance (perceived option 1): (0.299*R + 0.587*G + 0.114*B)
-            //Luminance (perceived option 2, slower to calculate): sqrt( 0.241*R^2 + 0.691*G^2 + 0.068*B^2 )
-            unsafe
-            {
-                byte* p = (byte*)(void*)scan0;
-
-                for (int y = 0; y < height; y++)
-                {
-                    for (int x = 0; x < width; x++)
-                    {
-                        int idx = (y * stride) + x * bppModifier;
-                        lum += (0.299 * p[idx + 2] + 0.587 * p[idx + 1] + 0.114 * p[idx]);
-                    }
-                }
-            }
-            tmpBmp.UnlockBits(srcData);
-            tmpBmp.Dispose();
-            var avgLum = lum / (width * height);
-            return avgLum / 255.0;
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -142,7 +113,7 @@ namespace MFAScreenLockApp
                 if (pass(txt_pwdcode.Text))
                 {
                     ws = 1;
-                    this.Hide();
+                    Close();
                 }
             }
             else if (txt_pwdcode.Text.Length == txt_pwdcode.MaxLength)
@@ -150,7 +121,7 @@ namespace MFAScreenLockApp
                 if (txt_pwdcode.Text == Settings.Default.RecoveryCode)
                 {
                     ws = 1;
-                    this.Hide();
+                    Close();
                 }
             }
         }
@@ -185,6 +156,13 @@ namespace MFAScreenLockApp
             {
                 hook.HookStop();
             }
+        }
+
+        ~FormLock()
+        {
+            if (wallPaperBmp != null) wallPaperBmp.Dispose();
+            if (wallPaperImg != null) wallPaperImg.Dispose();
+            Dispose();
         }
     }
 }

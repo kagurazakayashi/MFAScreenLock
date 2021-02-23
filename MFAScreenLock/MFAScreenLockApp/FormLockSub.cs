@@ -12,6 +12,9 @@ namespace MFAScreenLockApp
 {
     public partial class FormLockSub : Form
     {
+        public Bitmap wallPaperBmp = null;
+        private Image wallPaperImg = null;
+
         public FormLockSub()
         {
             InitializeComponent();
@@ -19,7 +22,18 @@ namespace MFAScreenLockApp
 
         private void FormLockSub_Load(object sender, EventArgs e)
         {
+            if (wallPaperBmp != null)
+            {
+                wallPaperImg = ImageControl.scaleBitmap(wallPaperBmp, Size.Width, Size.Height);
+                BackgroundImage = wallPaperImg;
+            }
+        }
 
+        ~FormLockSub()
+        {
+            if (wallPaperBmp != null) wallPaperBmp.Dispose();
+            if (wallPaperImg != null) wallPaperImg.Dispose();
+            Dispose();
         }
     }
 }

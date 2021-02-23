@@ -55,12 +55,10 @@
             this.lbl_time = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.bgImg = new System.Windows.Forms.PictureBox();
             this.softkeyboard.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bgImg)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_user
@@ -434,17 +432,6 @@
             this.timer2.Interval = 10;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // bgImg
-            // 
-            this.bgImg.BackColor = System.Drawing.Color.Black;
-            this.bgImg.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bgImg.Location = new System.Drawing.Point(0, 0);
-            this.bgImg.Name = "bgImg";
-            this.bgImg.Size = new System.Drawing.Size(1264, 681);
-            this.bgImg.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.bgImg.TabIndex = 8;
-            this.bgImg.TabStop = false;
-            // 
             // FormLock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -454,7 +441,6 @@
             this.ClientSize = new System.Drawing.Size(1264, 681);
             this.ControlBox = false;
             this.Controls.Add(this.tableLayoutPanel2);
-            this.Controls.Add(this.bgImg);
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -474,7 +460,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bgImg)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -505,6 +490,5 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         public System.Windows.Forms.Label lbl_info;
-        public System.Windows.Forms.PictureBox bgImg;
     }
 }

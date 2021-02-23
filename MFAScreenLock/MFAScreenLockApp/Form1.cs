@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace MFAScreenLockApp
@@ -29,7 +31,7 @@ namespace MFAScreenLockApp
         private static extern bool GetLastInputInfo(ref LASTINPUTINFO Dummy);
         [DllImport("Kernel32.dll")]
         private static extern uint GetLastError();
-
+        private Bitmap wallPaperBmp;
         private List<FormLockSub> formLockSubList = new List<FormLockSub>();
         private string[] args;
 
@@ -41,17 +43,19 @@ namespace MFAScreenLockApp
         private void Form1_Load(object sender, EventArgs e)
         {
             this.BeginInvoke(new Action(() => {
-                this.Hide();
+                Hide();
             }));
             版本ToolStripMenuItem.Text = "版本：" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string programname = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
             System.Diagnostics.Process[] myProcesses = System.Diagnostics.Process.GetProcessesByName(programname);//获取指定的进程名   
+            Thread.Sleep(500);
             if (myProcesses.Length > 1) //如果可以获取到知道的进程名则说明已经启动
             {
                 MessageBox.Show("程序已经启动，请查看任务栏中的图标。\n在图标上点击右键可以打开菜单。\n如果不需要验证后驻留后台，请添加 -e 参数。","程序已在运行",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 notifyIcon1.Visible = false;
                 Application.Exit();
             }
+            getwallPaper();
             args = Environment.GetCommandLineArgs();
             loadConfig();
             if (Settings.Default.Timeout >= 60)
@@ -90,7 +94,7 @@ namespace MFAScreenLockApp
                         Application.Exit();
                     }
                     this.BeginInvoke(new Action(() => {
-                        this.Hide();
+                        Close();
                     }));
                 }
                 formuser.ws = 0;
@@ -105,22 +109,26 @@ namespace MFAScreenLockApp
         private void locknow()
         {
             timer_lock.Enabled = false;
-            Bitmap wallPaperbmp = getwallPaper();
-            lockallscreen(true, wallPaperbmp);
+            lockallscreen(true, wallPaperBmp);
             FormLock formlock = new FormLock();
-            formlock.wallPaperbmp = wallPaperbmp;
+            formlock.wallPaperBmp = wallPaperBmp;
             formlock.ShowDialog();
             formlock.ws = 0;
-            lockallscreen(false, wallPaperbmp);
+            lockallscreen(false, wallPaperBmp);
             if (args.Length > 1 && args[1] == "-e")
             {
                 notifyIcon1.Visible = false;
                 Application.Exit();
             }
+            else
+            {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
             timer_lock.Enabled = true;
         }
 
-        private Bitmap getwallPaper()
+        private void getwallPaper()
         {
             StringBuilder wallPaperPath = new StringBuilder(200);
             if (SystemParametersInfo(SPI_GETDESKWALLPAPER, 200, wallPaperPath, 0))
@@ -128,14 +136,12 @@ namespace MFAScreenLockApp
                 string wallPaper = wallPaperPath.ToString();
                 if (wallPaper.Length > 0)
                 {
-                    Bitmap wallPaperbmp = new Bitmap(wallPaper);
-                    return wallPaperbmp;
+                    wallPaperBmp = new Bitmap(wallPaper);
                 }
             }
-            return null;
         }
 
-        private void lockallscreen(bool islock = true, Bitmap wallPaperbmp = null)
+        private void lockallscreen(bool islock = true, Bitmap wallPaperBmp = null)
         {
             if (islock)
             {
@@ -148,7 +154,7 @@ namespace MFAScreenLockApp
                     locksub.Left = area.Left;
                     locksub.Show();
                     locksub.WindowState = FormWindowState.Maximized;
-                    locksub.bgImg.Image = wallPaperbmp;
+                    locksub.wallPaperBmp = wallPaperBmp;
                     formLockSubList.Add(locksub);
                 }
             }
@@ -185,14 +191,13 @@ namespace MFAScreenLockApp
             }
             else
             {
-                Bitmap wallPaperbmp = getwallPaper();
-                lockallscreen(true, wallPaperbmp);
+                lockallscreen(true, wallPaperBmp);
                 timer_lock.Enabled = false;
                 FormLock formlock = new FormLock();
                 formlock.lbl_info.Text = "正在修改绑定设置";
-                formlock.wallPaperbmp = wallPaperbmp;
+                formlock.wallPaperBmp = wallPaperBmp;
                 formlock.ShowDialog();
-                lockallscreen(false, wallPaperbmp);
+                lockallscreen(false, wallPaperBmp);
                 if (formlock.ws == 1)
                 {
                     timer_lock.Enabled = false;
@@ -208,19 +213,19 @@ namespace MFAScreenLockApp
 
         private void 立即锁定LToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            locknow();
+            notifyIcon1.Visible = false;
+            Restart();
         }
 
         private void 退出EToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Bitmap wallPaperbmp = getwallPaper();
-            lockallscreen(true, wallPaperbmp);
+            lockallscreen(true, wallPaperBmp);
             timer_lock.Enabled = false;
             FormLock formlock = new FormLock();
             formlock.lbl_info.Text = "正在尝试退出软件";
-            formlock.wallPaperbmp = wallPaperbmp;
+            formlock.wallPaperBmp = wallPaperBmp;
             formlock.ShowDialog();
-            lockallscreen(false, wallPaperbmp);
+            lockallscreen(false, wallPaperBmp);
             if (formlock.ws == 1)
             {
                 notifyIcon1.Visible = false;
@@ -228,6 +233,14 @@ namespace MFAScreenLockApp
             }
             formlock.ws = 0;
             timer_lock.Enabled = true;
+        }
+
+        private void Restart()
+        {
+            Process ps = new Process();
+            ps.StartInfo.FileName = Application.ExecutablePath.ToString();
+            ps.Start();
+            Application.Exit();
         }
 
         private static uint GetIdleTime()
@@ -251,7 +264,6 @@ namespace MFAScreenLockApp
             {
                 throw new Exception(GetLastError().ToString());
             }
-
             return LastUserAction.dwTime;
         }
 
