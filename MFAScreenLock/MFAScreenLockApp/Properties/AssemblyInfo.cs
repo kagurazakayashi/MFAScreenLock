@@ -8,8 +8,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("雅诗动态密码锁定工具")]
 [assembly: AssemblyDescription("使用谷歌验证器锁定电脑")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("北京篝火网络科技有限公司")]
-[assembly: AssemblyProduct("霄霄设备锁定器4")]
+[assembly: AssemblyCompany("神楽坂雅詩")]
+[assembly: AssemblyProduct("设备锁定器4")]
 [assembly: AssemblyCopyright("https://github.com/kagurazakayashi/MFAScreenLock/blob/master/LICENSE")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
+[assembly: AssemblyVersion("4.2.0.0")]
+[assembly: AssemblyFileVersion("4.2.0.0")]

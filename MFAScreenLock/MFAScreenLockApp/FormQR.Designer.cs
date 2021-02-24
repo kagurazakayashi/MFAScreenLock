@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormQR));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.img_qr = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.lbl_EntryKey = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -44,7 +45,6 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.lbl_info = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.img_qr)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -77,6 +77,17 @@
             this.img_qr.TabStop = false;
             this.img_qr.UseWaitCursor = true;
             this.img_qr.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label1.Location = new System.Drawing.Point(3, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(411, 392);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "请稍候";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label1.UseWaitCursor = true;
             // 
             // groupBox2
             // 
@@ -175,7 +186,7 @@
             this.label2.Size = new System.Drawing.Size(771, 90);
             this.label2.TabIndex = 3;
             this.label2.Text = "· 进行绑定后，不要修改用户名、网域和计算机名称，修改前请先解绑，否则会导致无法登录！\r\n· 动态密码基于时间生成，设备和手机必须处于同一时区和时间，建议开启系统" +
-    "自动对时功能！\r\n· 不要将安装后的文件夹直接拷贝，可能会泄露您的 Key 造成密码风险，同时可能将他人电脑直接所动。\r\n· 请设置好本软件的设置文件权限，防止" +
+    "自动对时功能！\r\n· 不要将安装后的文件夹直接拷贝，可能会泄露您的 Key 造成密码风险，同时可能将他人电脑直接锁定。\r\n· 请设置好本软件的设置文件权限，防止" +
     "被其他用户访问到本程序的设置文件而泄露 Key 。";
             this.label2.UseWaitCursor = true;
             // 
@@ -215,17 +226,6 @@
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(3, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(411, 392);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "请稍候";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label1.UseWaitCursor = true;
             // 
             // FormQR
             // 

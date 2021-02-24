@@ -5,14 +5,12 @@
 - 依赖
   - `Windows ≥ 7 SP1 （x 86 和 x64）`
   - `Windows Server ≥ 2008 R2 SP1 (x64)`
-  - `.NET Framework ≥ 4.6.2`
-    - 下载： `https://support.microsoft.com/zh-cn/help/3151800/the-net-framework-4-6-2-offline-installer-for-windows`
+  - `.NET Framework ≥ 4.7.1`
 - 解压缩文件到用户文件夹中。
-  - 如果你不主动进行文件权限配置，则强烈推荐解压缩到用户文件夹中，防止被其他用户访问到密码文件。
+  - 如果你不主动进行文件权限配置，则强烈推荐解压缩到用户文件夹中，防止被其他用户访问到密码文件，建议使用 NTFS 自带加密功能加密设置存储文件。
 - 运行 `MFAScreenLockApp.exe` 。
 
 ## 配置
-
 - 直接运行，如果没有绑定过任何验证器，将出现设置画面。此时点击绑定按钮。
 - 确认显示的时间日期和时区与手机完全同步。
 - 使用 MFA APP 扫描二维码。

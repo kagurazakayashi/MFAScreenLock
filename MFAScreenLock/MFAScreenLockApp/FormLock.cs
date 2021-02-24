@@ -16,16 +16,16 @@ namespace MFAScreenLockApp
     public partial class FormLock : Form
     {
         [DllImport("user32.dll", CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern IntPtr GetForegroundWindow(); //获得本窗体的句柄
+        private static extern IntPtr GetForegroundWindow(); //获得本窗体的句柄
         [DllImport("user32.dll", EntryPoint = "SetForegroundWindow")]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);//设置此窗体为活动窗体
-        public IntPtr Handle1;
+        private static extern bool SetForegroundWindow(IntPtr hWnd);//设置此窗体为活动窗体
+        private IntPtr Handle1;
 
         public int ws = 0;
         private TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
         private HotKeyHandler hook = new HotKeyHandler();
-        public Bitmap wallPaperBmp = null;
-        private Image wallPaperImg = null;
+        public Bitmap wallPaperBmp;
+        private Image wallPaperImg;
         private double wallPaperlig = -1;
 
         public FormLock()
