@@ -277,7 +277,8 @@ namespace MFAScreenLockApp
             int timeoutcfg = Settings.Default.Timeout;
             if (timeoutcfg >= 60 && GetIdleTime() > Settings.Default.Timeout * 1000.0)
             {
-                locknow();
+                notifyIcon1.Visible = false;
+                Restart();
             }
         }
 

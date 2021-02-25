@@ -412,12 +412,12 @@
             this.lbl_time.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_time.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_time.Font = new System.Drawing.Font("微软雅黑", 80.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbl_time.Font = new System.Drawing.Font("微软雅黑", 69.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbl_time.Location = new System.Drawing.Point(5, 0);
             this.lbl_time.Name = "lbl_time";
             this.lbl_time.Size = new System.Drawing.Size(459, 140);
             this.lbl_time.TabIndex = 2;
-            this.lbl_time.Text = "00:00";
+            this.lbl_time.Text = "00:00:00";
             this.lbl_time.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // timer1
