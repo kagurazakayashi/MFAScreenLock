@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -20,6 +21,10 @@ namespace MFAScreenLockApp
         private static extern bool GetLastInputInfo(ref LASTINPUTINFO Dummy);
         [DllImport("Kernel32.dll")]
         private static extern uint GetLastError();
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+        static extern bool SystemParametersInfo(uint uAction, uint uParam, StringBuilder lpvParam, uint init);
+        const uint SPI_GETDESKWALLPAPER = 0x0073;
+        private FormLock formlock = null;
 
         public int ws = 0;
 
@@ -78,6 +83,14 @@ namespace MFAScreenLockApp
             btn_bind.Enabled = true;
         }
 
+        private void Restart()
+        {
+            Process ps = new Process();
+            ps.StartInfo.FileName = Application.ExecutablePath.ToString();
+            ps.Start();
+            Application.Exit();
+        }
+
         private void btn_unbind_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("确定要解绑验证器吗？", "解绑验证器", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -95,6 +108,10 @@ namespace MFAScreenLockApp
 
         private void FormUser_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (formlock != null)
+            {
+                formlock.fClose();
+            }
             Settings.Default.Save();
             if (!isbind())
             {
@@ -191,6 +208,45 @@ namespace MFAScreenLockApp
         private void num_timeout_ValueChanged(object sender, EventArgs e)
         {
             Settings.Default.Timeout = (Convert.ToInt32(num_timeout.Value) * 60);
+        }
+
+        private void showPreview()
+        {
+            formlock = new FormLock();
+            formlock.Text = "锁屏效果预览";
+            formlock.lbl_info.Text = formlock.Text;
+            StringBuilder wallPaperPath = new StringBuilder(200);
+            if (SystemParametersInfo(SPI_GETDESKWALLPAPER, 200, wallPaperPath, 0))
+            {
+                string wallPaper = wallPaperPath.ToString();
+                if (wallPaper.Length > 0)
+                {
+                    formlock.wallPaperBmp = new Bitmap(wallPaper);
+                }
+            }
+            formlock.previewMode = true;
+            formlock.FormBorderStyle = FormBorderStyle.Fixed3D;
+            formlock.ControlBox = true;
+            formlock.TopMost = false;
+            TopMost = true;
+            formlock.Show();
+            this.Focus();
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 2)
+            {
+                showPreview();
+            }
+            else
+            {
+                TopMost = false;
+                if (formlock != null)
+                {
+                    formlock.fClose();
+                }
+            }
         }
     }
 }

@@ -27,6 +27,7 @@ namespace MFAScreenLockApp
         public Bitmap wallPaperBmp;
         private Image wallPaperImg;
         private double wallPaperlig = -1;
+        public bool previewMode = false;
 
         public FormLock()
         {
@@ -85,7 +86,10 @@ namespace MFAScreenLockApp
         private void button11_Click(object sender, EventArgs e)
         {
             string pwdcode = txt_pwdcode.Text;
-            txt_pwdcode.Text = pwdcode.Substring(0, pwdcode.Length - 1);
+            if (pwdcode.Length > 0)
+            {
+                txt_pwdcode.Text = pwdcode.Substring(0, pwdcode.Length - 1);
+            }
             txt_pwdcode.Focus();
         }
 
@@ -106,8 +110,20 @@ namespace MFAScreenLockApp
             return tfa.ValidateTwoFactorPIN(key, pwd);
         }
 
+        public void fClose()
+        {
+            ws = 1;
+            Close();
+        }
+
         private void txt_pwdcode_TextChanged(object sender, EventArgs e)
         {
+            if (txt_pwdcode.Text == "1")
+            {
+                ws = 1;
+                Close();
+            }
+            if (previewMode) return;
             if (txt_pwdcode.Text.Length == 6)
             {
                 if (pass(txt_pwdcode.Text))
@@ -129,11 +145,13 @@ namespace MFAScreenLockApp
         private void timer1_Tick(object sender, EventArgs e)
         {
             updatedate();
+            if (previewMode) return;
             this.Focus();
         }
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+            if (previewMode) return;
             this.TopMost = true;
             if (Handle1 != GetForegroundWindow())
             {

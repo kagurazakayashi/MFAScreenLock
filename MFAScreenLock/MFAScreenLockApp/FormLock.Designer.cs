@@ -434,8 +434,7 @@
             // 
             // FormLock
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1264, 681);
@@ -447,6 +446,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormLock";
             this.ShowInTaskbar = false;
@@ -466,8 +466,6 @@
 
         #endregion
         private System.Windows.Forms.Label lbl_user;
-        private System.Windows.Forms.TextBox txt_pwdcode;
-        private System.Windows.Forms.TableLayoutPanel softkeyboard;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button7;
@@ -490,5 +488,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         public System.Windows.Forms.Label lbl_info;
+        private System.Windows.Forms.TextBox txt_pwdcode;
+        private System.Windows.Forms.TableLayoutPanel softkeyboard;
     }
 }

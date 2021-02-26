@@ -53,7 +53,9 @@
             this.num_timeout = new System.Windows.Forms.NumericUpDown();
             this.check_timeoutenable = new System.Windows.Forms.CheckBox();
             this.check_loginstart = new System.Windows.Forms.CheckBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btn_rmsetting = new System.Windows.Forms.LinkLabel();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -180,14 +182,17 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(600, 336);
             this.tabControl1.TabIndex = 12;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btn_rmsetting);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.btn_bind);
             this.tabPage1.Controls.Add(this.groupBox1);
@@ -349,10 +354,31 @@
             this.check_loginstart.UseVisualStyleBackColor = true;
             this.check_loginstart.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(592, 303);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "个性化";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // btn_rmsetting
+            // 
+            this.btn_rmsetting.AutoSize = true;
+            this.btn_rmsetting.Location = new System.Drawing.Point(12, 270);
+            this.btn_rmsetting.Name = "btn_rmsetting";
+            this.btn_rmsetting.Size = new System.Drawing.Size(116, 20);
+            this.btn_rmsetting.TabIndex = 11;
+            this.btn_rmsetting.TabStop = true;
+            this.btn_rmsetting.Text = "删除所有设置 (&R)";
+            this.btn_rmsetting.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btn_rmsetting_LinkClicked);
             // 
             // FormUser
             // 
@@ -375,6 +401,7 @@
             this.groupBox1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -408,5 +435,7 @@
         private System.Windows.Forms.Label lbl_timeout;
         private System.Windows.Forms.Timer timer1;
         public System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.LinkLabel btn_rmsetting;
     }
 }
