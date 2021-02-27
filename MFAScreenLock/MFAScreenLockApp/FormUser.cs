@@ -96,8 +96,28 @@ namespace MFAScreenLockApp
             DialogResult result = MessageBox.Show("确定要解绑验证器吗？", "解绑验证器", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
+                Settings.Default.AccountSecretKey = "";
+                Settings.Default.MachineName = "";
+                Settings.Default.UserDomainName = "";
+                Settings.Default.UserName = "";
+                Settings.Default.Date = new DateTime();
+                Settings.Default.RecoveryCode = "";
+                Settings.Default.TimeoutEnable = false;
+                Settings.Default.LoginStart = false;
+                autoStart(false);
+                Settings.Default.Save();
+                Restart();
+            }
+        }
+
+        private void btn_rmsetting_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("将会解绑验证器并删除所有设置！确定要这样做吗？", "恢复出厂设置", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                autoStart(false);
                 Settings.Default.Reset();
-                loaddata();
+                Restart();
             }
         }
 
