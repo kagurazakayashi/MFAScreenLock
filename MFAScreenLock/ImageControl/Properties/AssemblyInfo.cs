@@ -1,5 +1,4 @@
-﻿using System.Resources;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -7,12 +6,12 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("雅诗动态密码锁定工具")]
-[assembly: AssemblyDescription("使用谷歌验证器锁定电脑")]
+[assembly: AssemblyDescription("图片处理工具")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("神楽坂雅詩")]
 [assembly: AssemblyProduct("设备锁定器4")]
-[assembly: AssemblyCopyright("https://github.com/kagurazakayashi/MFAScreenLock/blob/master/LICENSE")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyTrademark("https://github.com/kagurazakayashi/MFAScreenLock/blob/master/LICENSE")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 会使此程序集中的类型
@@ -21,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("8e4f3633-130b-4ceb-b83f-77d21148e69e")]
+[assembly: Guid("daf43083-d696-4459-9500-bfed3a59ad3f")]
 
 // 程序集的版本信息由下列四个值组成: 
 //
@@ -33,6 +32,5 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.2.0.0")]
-[assembly: AssemblyFileVersion("4.2.0.0")]
-[assembly: NeutralResourcesLanguage("zh-Hans")]
+[assembly: AssemblyVersion("4.3.0.0")]
+[assembly: AssemblyFileVersion("4.3.0.0")]

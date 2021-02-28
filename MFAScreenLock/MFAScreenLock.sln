@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFAScreenLockApp", "MFAScreenLockApp\MFAScreenLockApp.csproj", "{8E4F3633-130B-4CEB-B83F-77D21148E69E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SysLink", "SysLink\SysLink.csproj", "{92ED2A84-22CA-4B10-AED2-7ED76F6DD49D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageControl", "ImageControl\ImageControl.csproj", "{DAF43083-D696-4459-9500-BFED3A59AD3F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{8E4F3633-130B-4CEB-B83F-77D21148E69E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E4F3633-130B-4CEB-B83F-77D21148E69E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E4F3633-130B-4CEB-B83F-77D21148E69E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92ED2A84-22CA-4B10-AED2-7ED76F6DD49D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92ED2A84-22CA-4B10-AED2-7ED76F6DD49D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92ED2A84-22CA-4B10-AED2-7ED76F6DD49D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92ED2A84-22CA-4B10-AED2-7ED76F6DD49D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAF43083-D696-4459-9500-BFED3A59AD3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAF43083-D696-4459-9500-BFED3A59AD3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAF43083-D696-4459-9500-BFED3A59AD3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAF43083-D696-4459-9500-BFED3A59AD3F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

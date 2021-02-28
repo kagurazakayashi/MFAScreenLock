@@ -118,11 +118,13 @@ namespace MFAScreenLockApp
 
         private void txt_pwdcode_TextChanged(object sender, EventArgs e)
         {
+            // DEBUG!
             if (txt_pwdcode.Text == "1")
             {
                 ws = 1;
                 Close();
             }
+            //
             if (previewMode) return;
             if (txt_pwdcode.Text.Length == 6)
             {

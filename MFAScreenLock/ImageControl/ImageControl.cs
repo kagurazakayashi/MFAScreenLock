@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MFAScreenLockApp
 {
-    class ImageControl
+    public class ImageControl
     {
         public static double CalculateAverageLightness(Bitmap bm)
         {

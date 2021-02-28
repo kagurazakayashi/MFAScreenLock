@@ -15,22 +15,6 @@ namespace MFAScreenLockApp
 {
     public partial class Form1 : Form
     {
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        static extern bool SystemParametersInfo(uint uAction, uint uParam, StringBuilder lpvParam, uint init);
-        const uint SPI_GETDESKWALLPAPER = 0x0073;
-
-        internal struct LASTINPUTINFO
-        {
-            public uint cbSize;
-            public uint dwTime;
-        }
-
-        [DllImport("User32.dll")]
-        public static extern bool LockWorkStation();
-        [DllImport("User32.dll")]
-        private static extern bool GetLastInputInfo(ref LASTINPUTINFO Dummy);
-        [DllImport("Kernel32.dll")]
-        private static extern uint GetLastError();
         private Bitmap wallPaperBmp;
         private List<FormLockSub> formLockSubList = new List<FormLockSub>();
         private string[] args;
@@ -55,7 +39,7 @@ namespace MFAScreenLockApp
                 notifyIcon1.Visible = false;
                 Application.Exit();
             }
-            getwallPaper();
+            wallPaperBmp = SysLink.GetwallPaper();
             args = Environment.GetCommandLineArgs();
             loadConfig();
             if (Settings.Default.Timeout >= 60)
@@ -126,19 +110,6 @@ namespace MFAScreenLockApp
                 GC.WaitForPendingFinalizers();
             }
             timer_lock.Enabled = true;
-        }
-
-        private void getwallPaper()
-        {
-            StringBuilder wallPaperPath = new StringBuilder(200);
-            if (SystemParametersInfo(SPI_GETDESKWALLPAPER, 200, wallPaperPath, 0))
-            {
-                string wallPaper = wallPaperPath.ToString();
-                if (wallPaper.Length > 0)
-                {
-                    wallPaperBmp = new Bitmap(wallPaper);
-                }
-            }
         }
 
         private void lockallscreen(bool islock = true, Bitmap wallPaperBmp = null)
@@ -243,30 +214,6 @@ namespace MFAScreenLockApp
             Application.Exit();
         }
 
-        private static uint GetIdleTime()
-        {
-            LASTINPUTINFO LastUserAction = new LASTINPUTINFO();
-            LastUserAction.cbSize = (uint)Marshal.SizeOf(LastUserAction);
-            GetLastInputInfo(ref LastUserAction);
-            return ((uint)Environment.TickCount - LastUserAction.dwTime);
-        }
-
-        private static long GetTickCount()
-        {
-            return Environment.TickCount;
-        }
-
-        private static long GetLastInputTime()
-        {
-            LASTINPUTINFO LastUserAction = new LASTINPUTINFO();
-            LastUserAction.cbSize = (uint)Marshal.SizeOf(LastUserAction);
-            if (!GetLastInputInfo(ref LastUserAction))
-            {
-                throw new Exception(GetLastError().ToString());
-            }
-            return LastUserAction.dwTime;
-        }
-
         private void timer_lock_Tick(object sender, EventArgs e)
         {
             if (Settings.Default.TimeoutEnable == false)
@@ -275,7 +222,7 @@ namespace MFAScreenLockApp
                 return;
             }
             int timeoutcfg = Settings.Default.Timeout;
-            if (timeoutcfg >= 60 && GetIdleTime() > Settings.Default.Timeout * 1000.0)
+            if (timeoutcfg >= 60 && SysLink.GetIdleTime() > Settings.Default.Timeout * 1000.0)
             {
                 notifyIcon1.Visible = false;
                 Restart();
