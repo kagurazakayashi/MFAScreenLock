@@ -16,6 +16,7 @@ namespace MFAScreenLockApp
     public partial class FormUser : Form
     {
         private FormLock formlock = null;
+        private Font[] fontSet = new Font[6];
 
         public int ws = 0;
 
@@ -194,7 +195,7 @@ namespace MFAScreenLockApp
             formlock = new FormLock();
             formlock.Text = "锁屏效果预览";
             formlock.lbl_info.Text = formlock.Text;
-            formlock.wallPaperBmp = SysLink.GetwallPaper();
+            formlock.wallPaperBmp = ShareClass.gWallPaperBmp();
             formlock.previewMode = true;
             formlock.FormBorderStyle = FormBorderStyle.Fixed3D;
             formlock.ControlBox = true;
@@ -209,14 +210,64 @@ namespace MFAScreenLockApp
             if (tabControl1.SelectedIndex == 2)
             {
                 showPreview();
+                loadFonts();
             }
             else
             {
+                if (combo_font.Items.Count > 0)
+                {
+                    combo_font.Items.Clear();
+                }
                 TopMost = false;
                 if (formlock != null)
                 {
                     formlock.fClose();
                 }
+            }
+        }
+
+        private void loadFonts()
+        {
+            if (combo_font.Items.Count > 0)
+            {
+                combo_font.Items.Clear();
+            }
+            combo_font.Items.Add("时间字体：" + formlock.lbl_time.Font.ToString());
+            combo_font.Items.Add("日期字体：" + formlock.lbl_date.Font.ToString());
+            combo_font.Items.Add("用户名字体：" + formlock.lbl_user.Font.ToString());
+            combo_font.Items.Add("提示信息字体：" + formlock.lbl_info.Font.ToString());
+            combo_font.Items.Add("密码输入框字体：" + formlock.txt_pwdcode.Font.ToString());
+            combo_font.Items.Add("其他字体：" + formlock.Font.ToString());
+        }
+
+        private void btn_font_Click(object sender, EventArgs e)
+        {
+            // combo_font
+            fontDialog1.ShowDialog();
+
+            if (Settings.Default.FontTime != null)
+            {
+                formlock.lbl_time.Font.ToString();
+            }
+            if (Settings.Default.FontDate != null)
+            {
+                formlock.lbl_date.Font.ToString();
+            }
+            if (Settings.Default.FontUser != null)
+            {
+                formlock.lbl_user.Font.ToString();
+            }
+            if (Settings.Default.FontMenu != null)
+            {
+                formlock.Font.ToString();
+            }
+            if (Settings.Default.FontInfo != null)
+            {
+                formlock.lbl_info.Font.ToString();
+            }
+            if (Settings.Default.FontInput != null)
+            {
+                formlock.txt_pwdcode.Font.ToString();
             }
         }
     }
