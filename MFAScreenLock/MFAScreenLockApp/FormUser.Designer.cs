@@ -55,16 +55,17 @@
             this.check_timeoutenable = new System.Windows.Forms.CheckBox();
             this.check_loginstart = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.combo_scale = new System.Windows.Forms.ComboBox();
+            this.combo_background = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.check_autocolor = new System.Windows.Forms.CheckBox();
             this.btn_font = new System.Windows.Forms.Button();
             this.combo_font = new System.Windows.Forms.ComboBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -73,8 +74,8 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_timeout)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -389,9 +390,68 @@
             this.tabPage3.Text = "个性化";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.label3);
+            this.groupBox5.Controls.Add(this.combo_scale);
+            this.groupBox5.Controls.Add(this.combo_background);
+            this.groupBox5.Location = new System.Drawing.Point(6, 104);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(580, 95);
+            this.groupBox5.TabIndex = 1;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "背景图设置";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 62);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(51, 20);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "布局：";
+            // 
+            // combo_scale
+            // 
+            this.combo_scale.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.combo_scale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combo_scale.FormattingEnabled = true;
+            this.combo_scale.Items.AddRange(new object[] {
+            "禁用",
+            "标准",
+            "居中",
+            "拉伸",
+            "缩放",
+            "填充"});
+            this.combo_scale.Location = new System.Drawing.Point(113, 59);
+            this.combo_scale.Name = "combo_scale";
+            this.combo_scale.Size = new System.Drawing.Size(461, 28);
+            this.combo_scale.TabIndex = 1;
+            this.combo_scale.SelectedIndexChanged += new System.EventHandler(this.combo_scale_SelectedIndexChanged);
+            // 
+            // combo_background
+            // 
+            this.combo_background.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.combo_background.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combo_background.FormattingEnabled = true;
+            this.combo_background.Items.AddRange(new object[] {
+            "使用我的主屏桌面壁纸",
+            "选择一个文件..."});
+            this.combo_background.Location = new System.Drawing.Point(6, 25);
+            this.combo_background.Name = "combo_background";
+            this.combo_background.Size = new System.Drawing.Size(568, 28);
+            this.combo_background.TabIndex = 0;
+            this.combo_background.SelectedIndexChanged += new System.EventHandler(this.combo_background_SelectedIndexChanged);
+            // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.checkBox1);
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.check_autocolor);
             this.groupBox4.Controls.Add(this.btn_font);
             this.groupBox4.Controls.Add(this.combo_font);
             this.groupBox4.Location = new System.Drawing.Point(6, 6);
@@ -401,22 +461,24 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "字体设置";
             // 
-            // checkBox1
+            // check_autocolor
             // 
-            this.checkBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.check_autocolor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(6, 59);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(421, 27);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "根据我的背景图自动决定所有字体是黑色还是白色";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.check_autocolor.Checked = true;
+            this.check_autocolor.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.check_autocolor.Location = new System.Drawing.Point(6, 59);
+            this.check_autocolor.Name = "check_autocolor";
+            this.check_autocolor.Size = new System.Drawing.Size(421, 27);
+            this.check_autocolor.TabIndex = 2;
+            this.check_autocolor.Text = "根据我的背景图自动决定所有字体是黑色还是白色";
+            this.check_autocolor.UseVisualStyleBackColor = true;
+            this.check_autocolor.CheckedChanged += new System.EventHandler(this.check_autocolor_CheckedChanged);
             // 
             // btn_font
             // 
             this.btn_font.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_font.Enabled = false;
             this.btn_font.Location = new System.Drawing.Point(434, 57);
             this.btn_font.Name = "btn_font";
             this.btn_font.Size = new System.Drawing.Size(140, 28);
@@ -435,66 +497,22 @@
             this.combo_font.Name = "combo_font";
             this.combo_font.Size = new System.Drawing.Size(568, 28);
             this.combo_font.TabIndex = 0;
+            this.combo_font.SelectedIndexChanged += new System.EventHandler(this.combo_font_SelectedIndexChanged);
             // 
             // timer1
             // 
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // groupBox5
+            // fontDialog1
             // 
-            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox5.Controls.Add(this.label3);
-            this.groupBox5.Controls.Add(this.comboBox2);
-            this.groupBox5.Controls.Add(this.comboBox1);
-            this.groupBox5.Location = new System.Drawing.Point(6, 104);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(580, 95);
-            this.groupBox5.TabIndex = 1;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "背景图设置";
+            this.fontDialog1.ShowColor = true;
             // 
-            // comboBox1
+            // openFileDialog1
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "使用我的主屏桌面壁纸",
-            "选择一个文件..."});
-            this.comboBox1.Location = new System.Drawing.Point(6, 25);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(568, 28);
-            this.comboBox1.TabIndex = 0;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "禁用",
-            "标准",
-            "居中",
-            "拉伸",
-            "缩放",
-            "填充"});
-            this.comboBox2.Location = new System.Drawing.Point(113, 59);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(461, 28);
-            this.comboBox2.TabIndex = 1;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 62);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(51, 20);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "布局：";
+            this.openFileDialog1.FileName = "openFileDialog1";
+            this.openFileDialog1.Filter = resources.GetString("openFileDialog1.Filter");
+            this.openFileDialog1.Title = "选择一个图像文件作为背景图";
             // 
             // FormUser
             // 
@@ -523,9 +541,9 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_timeout)).EndInit();
             this.tabPage3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -558,13 +576,14 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.LinkLabel btn_rmsetting;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox check_autocolor;
         private System.Windows.Forms.Button btn_font;
         private System.Windows.Forms.ComboBox combo_font;
         private System.Windows.Forms.FontDialog fontDialog1;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox combo_background;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox combo_scale;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

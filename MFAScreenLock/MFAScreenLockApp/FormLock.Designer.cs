@@ -363,7 +363,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.BackColor = System.Drawing.Color.Transparent;
             this.label5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label5.Font = new System.Drawing.Font("微软雅黑", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label5.Location = new System.Drawing.Point(0, 134);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(294, 42);
@@ -404,7 +403,7 @@
             this.lbl_date.Name = "lbl_date";
             this.lbl_date.Size = new System.Drawing.Size(441, 35);
             this.lbl_date.TabIndex = 3;
-            this.lbl_date.Text = "0";
+            this.lbl_date.Text = "----  --  --";
             this.lbl_date.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // lbl_time
@@ -417,7 +416,7 @@
             this.lbl_time.Name = "lbl_time";
             this.lbl_time.Size = new System.Drawing.Size(459, 140);
             this.lbl_time.TabIndex = 2;
-            this.lbl_time.Text = "00:00:00";
+            this.lbl_time.Text = "--:--:--";
             this.lbl_time.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // timer1
@@ -465,7 +464,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label lbl_user;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button7;
@@ -480,15 +478,16 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel userimage;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label lbl_date;
-        private System.Windows.Forms.Label lbl_time;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
         public System.Windows.Forms.Label lbl_info;
-        private System.Windows.Forms.TextBox txt_pwdcode;
         private System.Windows.Forms.TableLayoutPanel softkeyboard;
+        public System.Windows.Forms.Label lbl_user;
+        public System.Windows.Forms.Label lbl_date;
+        public System.Windows.Forms.Label lbl_time;
+        public System.Windows.Forms.TextBox txt_pwdcode;
     }
 }

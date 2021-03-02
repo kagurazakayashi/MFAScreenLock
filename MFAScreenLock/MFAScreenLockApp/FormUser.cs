@@ -17,7 +17,8 @@ namespace MFAScreenLockApp
     {
         private FormLock formlock = null;
         private Font[] fontSet = new Font[6];
-
+        private int selectFontItem = -1;
+        private bool loadOK = false;
         public int ws = 0;
 
         public FormUser()
@@ -34,11 +35,26 @@ namespace MFAScreenLockApp
         {
             isbind();
             check_loginstart.Checked = Settings.Default.LoginStart;
+            check_autocolor.Checked = Settings.Default.ColorAuto;
+            combo_scale.SelectedIndex = Settings.Default.Scale;
+            if (Settings.Default.Background.Length > 0)
+            {
+                combo_background.Items.Clear();
+                combo_background.Items.Add("使用我的主屏桌面壁纸");
+                combo_background.Items.Add(Settings.Default.Background);
+                combo_background.Items.Add("选择一个文件...");
+                combo_background.SelectedIndex = 1;
+            }
+            else
+            {
+                combo_background.SelectedIndex = 0;
+            }
             int timeouts = Settings.Default.Timeout;
             num_timeout.Value = timeouts / 60;
             prog_timeout.Value = 0;
             prog_timeout.Maximum = timeouts * 1000;
             check_timeoutenable.Checked = Settings.Default.TimeoutEnable;
+            loadOK = true;
         }
 
         private bool isbind()
@@ -195,10 +211,11 @@ namespace MFAScreenLockApp
             formlock = new FormLock();
             formlock.Text = "锁屏效果预览";
             formlock.lbl_info.Text = formlock.Text;
-            formlock.wallPaperBmp = ShareClass.gWallPaperBmp();
+            formlock.setBackgroundImage(ShareClass.gWallPaperBmp());
             formlock.previewMode = true;
             formlock.FormBorderStyle = FormBorderStyle.Fixed3D;
             formlock.ControlBox = true;
+            formlock.MaximizeBox = true;
             formlock.TopMost = false;
             TopMost = true;
             formlock.Show();
@@ -216,6 +233,7 @@ namespace MFAScreenLockApp
             {
                 if (combo_font.Items.Count > 0)
                 {
+                    btn_font.Enabled = false;
                     combo_font.Items.Clear();
                 }
                 TopMost = false;
@@ -242,32 +260,152 @@ namespace MFAScreenLockApp
 
         private void btn_font_Click(object sender, EventArgs e)
         {
-            // combo_font
-            fontDialog1.ShowDialog();
+            switch (selectFontItem)
+            {
+                case 0:
+                    fontDialog1.Font = formlock.lbl_time.Font;
+                    fontDialog1.Color = formlock.lbl_time.ForeColor;
+                    break;
+                case 1:
+                    fontDialog1.Font = formlock.lbl_date.Font;
+                    fontDialog1.Color = formlock.lbl_date.ForeColor;
+                    break;
+                case 2:
+                    fontDialog1.Font = formlock.lbl_user.Font;
+                    fontDialog1.Color = formlock.lbl_user.ForeColor;
+                    break;
+                case 3:
+                    fontDialog1.Font = formlock.lbl_info.Font;
+                    fontDialog1.Color = formlock.lbl_info.ForeColor;
+                    break;
+                case 4:
+                    fontDialog1.Font = formlock.txt_pwdcode.Font;
+                    fontDialog1.Color = formlock.txt_pwdcode.ForeColor;
+                    break;
+                case 5:
+                    fontDialog1.Font = formlock.Font;
+                    fontDialog1.Color = formlock.ForeColor;
+                    break;
+                default:
+                    break;
+            }
+            if (fontDialog1.ShowDialog() != DialogResult.Cancel)
+            {
+                switch (selectFontItem)
+                {
+                    case 0:
+                        Settings.Default.FontTime = fontDialog1.Font;
+                        formlock.lbl_time.Font = fontDialog1.Font;
+                        if (!check_autocolor.Checked)
+                        {
+                            Settings.Default.ColorTime = fontDialog1.Color;
+                            formlock.lbl_time.ForeColor = fontDialog1.Color;
+                        }
+                        break;
+                    case 1:
+                        Settings.Default.FontDate = fontDialog1.Font;
+                        formlock.lbl_date.Font = fontDialog1.Font;
+                        if (!check_autocolor.Checked)
+                        {
+                            Settings.Default.ColorDate = fontDialog1.Color;
+                            formlock.lbl_date.ForeColor = fontDialog1.Color;
+                        }
+                        break;
+                    case 2:
+                        Settings.Default.FontUser = fontDialog1.Font;
+                        formlock.lbl_user.Font = fontDialog1.Font;
+                        if (!check_autocolor.Checked)
+                        {
+                            Settings.Default.ColorUser = fontDialog1.Color;
+                            formlock.lbl_user.ForeColor = fontDialog1.Color;
+                        }
+                        break;
+                    case 3:
+                        Settings.Default.FontInfo = fontDialog1.Font;
+                        formlock.lbl_info.Font = fontDialog1.Font;
+                        if (!check_autocolor.Checked)
+                        {
+                            Settings.Default.ColorInfo = fontDialog1.Color;
+                            formlock.lbl_info.ForeColor = fontDialog1.Color;
+                        }
+                        break;
+                    case 4:
+                        Settings.Default.FontInput = fontDialog1.Font;
+                        formlock.txt_pwdcode.Font = fontDialog1.Font;
+                        if (!check_autocolor.Checked)
+                        {
+                            Settings.Default.ColorInput = fontDialog1.Color;
+                            formlock.txt_pwdcode.ForeColor = fontDialog1.Color;
+                        }
+                        break;
+                    case 5:
+                        Settings.Default.FontMenu = fontDialog1.Font;
+                        formlock.Font = fontDialog1.Font;
+                        if (!check_autocolor.Checked)
+                        {
+                            Settings.Default.ColorMenu = fontDialog1.Color;
+                            formlock.ForeColor = fontDialog1.Color;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
 
-            if (Settings.Default.FontTime != null)
+        private void combo_font_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            btn_font.Enabled = true;
+            selectFontItem = combo_font.SelectedIndex;
+        }
+
+        private void check_autocolor_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.ColorAuto = check_autocolor.Checked;
+            if (check_autocolor.Checked)
             {
-                formlock.lbl_time.Font.ToString();
+                formlock.loadFonts();
             }
-            if (Settings.Default.FontDate != null)
+        }
+
+        private void combo_background_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (loadOK)
             {
-                formlock.lbl_date.Font.ToString();
+                if (combo_background.SelectedIndex == 0)
+                {
+                    loadOK = false;
+                    Settings.Default.Background = "";
+                    combo_background.Items.Clear();
+                    combo_background.Items.Add("使用我的主屏桌面壁纸");
+                    combo_background.Items.Add("选择一个文件...");
+                    combo_background.SelectedIndex = 0;
+                    loadOK = true;
+                }
+                else
+                {
+                    if (openFileDialog1.ShowDialog() != DialogResult.Cancel)
+                    {
+                        Settings.Default.Background = openFileDialog1.FileName;
+                        loadOK = false;
+                        combo_background.Items.Clear();
+                        combo_background.Items.Add("使用我的主屏桌面壁纸");
+                        combo_background.Items.Add(openFileDialog1.FileName);
+                        combo_background.Items.Add("选择一个文件...");
+                        combo_background.SelectedIndex = 0;
+                        loadOK = true;
+                    }
+                }
+                formlock.setBackgroundImage(ShareClass.gWallPaperBmp());
             }
-            if (Settings.Default.FontUser != null)
+        }
+
+        private void combo_scale_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (loadOK)
             {
-                formlock.lbl_user.Font.ToString();
-            }
-            if (Settings.Default.FontMenu != null)
-            {
-                formlock.Font.ToString();
-            }
-            if (Settings.Default.FontInfo != null)
-            {
-                formlock.lbl_info.Font.ToString();
-            }
-            if (Settings.Default.FontInput != null)
-            {
-                formlock.txt_pwdcode.Font.ToString();
+                Settings.Default.Scale = combo_scale.SelectedIndex;
+                formlock.setBackgroundImage(ShareClass.gWallPaperBmp());
             }
         }
     }

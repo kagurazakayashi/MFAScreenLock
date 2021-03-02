@@ -10,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Drawing.Imaging;
 using Google.Authenticator;
 using MFAScreenLockApp.Properties;
+using System.IO;
 
 namespace MFAScreenLockApp
 {
@@ -24,8 +25,7 @@ namespace MFAScreenLockApp
         public int ws = 0;
         private TwoFactorAuthenticator tfa = new TwoFactorAuthenticator();
         private HotKeyHandler hook = new HotKeyHandler();
-        public Bitmap wallPaperBmp;
-        private Image wallPaperImg;
+        private Bitmap wallPaperBmp;
         private double wallPaperlig = -1;
         public bool previewMode = false;
 
@@ -33,6 +33,16 @@ namespace MFAScreenLockApp
         {
             InitializeComponent();
             //tableLayoutPanel2.BackColor = Color.FromArgb(0, tableLayoutPanel2.BackColor);
+        }
+
+        public void setBackgroundImage(Bitmap wallPaperBmp)
+        {
+            this.wallPaperBmp = wallPaperBmp;
+            if (wallPaperBmp != null)
+            {
+                BackgroundImage = ShareClass.autoScaleBitmap(wallPaperBmp, Size);
+            }
+            BackgroundImageLayout = ShareClass.imageLayout();
         }
 
         private void FormLock_Load(object sender, EventArgs e)
@@ -43,24 +53,11 @@ namespace MFAScreenLockApp
                 Close();
                 return;
             }
+            loadFonts();
             hook.HookStart();
             Handle1 = this.Handle;
             lbl_user.Text = Environment.UserName;
             updatedate();
-            if (wallPaperBmp != null)
-            {
-                if (wallPaperlig == -1)
-                {
-                    wallPaperlig = ImageControl.CalculateAverageLightness(wallPaperBmp);
-                }
-                if (wallPaperlig > 0.5)
-                {
-                    this.ForeColor = Color.Black;
-                    userimage.BackgroundImage = Resources.ic_account_circle_black_48dp;
-                }
-                wallPaperImg = ImageControl.scaleBitmap(wallPaperBmp, Size.Width, Size.Height);
-                BackgroundImage = wallPaperImg;
-            }
             txt_pwdcode.Focus();
         }
 
@@ -144,6 +141,96 @@ namespace MFAScreenLockApp
             }
         }
 
+        private Color gColor()
+        {
+            if (wallPaperlig == -1)
+            {
+                wallPaperlig = ImageControl.CalculateAverageLightness(wallPaperBmp);
+            }
+            if (wallPaperlig > 0.5)
+            {
+                return Color.Black;
+            }
+            return Color.White;
+        }
+        public void loadFonts()
+        {
+            if (Settings.Default.FontTime != null)
+            {
+                lbl_time.Font = Settings.Default.FontTime;
+            }
+            if (Settings.Default.FontDate != null)
+            {
+                lbl_date.Font = Settings.Default.FontDate;
+            }
+            if (Settings.Default.FontUser != null)
+            {
+                lbl_user.Font = Settings.Default.FontUser;
+            }
+            if (Settings.Default.FontMenu != null)
+            {
+                Font = Settings.Default.FontMenu;
+            }
+            if (Settings.Default.FontInfo != null)
+            {
+                lbl_info.Font = Settings.Default.FontInfo;
+            }
+            if (Settings.Default.FontInput != null)
+            {
+                txt_pwdcode.Font = Settings.Default.FontInput;
+            }
+
+            bool nc = !Settings.Default.ColorAuto;
+            if (nc && Settings.Default.ColorTime != null)
+            {
+                lbl_time.ForeColor = Settings.Default.ColorTime;
+            }
+            else
+            {
+                lbl_time.ForeColor = gColor();
+            }
+            if (nc && Settings.Default.ColorDate != null)
+            {
+                lbl_date.ForeColor = Settings.Default.ColorDate;
+            }
+            else
+            {
+                lbl_date.ForeColor = gColor();
+            }
+            if (nc && Settings.Default.ColorUser != null)
+            {
+                lbl_user.ForeColor = Settings.Default.ColorUser;
+            }
+            else
+            {
+                lbl_user.ForeColor = gColor();
+            }
+            if (nc && Settings.Default.ColorInfo != null)
+            {
+                lbl_info.ForeColor = Settings.Default.ColorInfo;
+            }
+            else
+            {
+                lbl_info.ForeColor = gColor();
+            }
+            if (nc && Settings.Default.ColorInput != null)
+            {
+                txt_pwdcode.ForeColor = Settings.Default.ColorInput;
+            }
+            else
+            {
+                txt_pwdcode.ForeColor = gColor();
+            }
+            if (nc && Settings.Default.ColorMenu != null)
+            {
+                ForeColor = Settings.Default.ColorMenu;
+            }
+            else
+            {
+                ForeColor = gColor();
+            }
+        }
+
         private void timer1_Tick(object sender, EventArgs e)
         {
             updatedate();
@@ -181,7 +268,6 @@ namespace MFAScreenLockApp
         ~FormLock()
         {
             if (wallPaperBmp != null) wallPaperBmp.Dispose();
-            if (wallPaperImg != null) wallPaperImg.Dispose();
             Dispose();
         }
     }

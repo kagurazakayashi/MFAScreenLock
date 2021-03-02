@@ -39,7 +39,8 @@ namespace MFAScreenLockApp
                 notifyIcon1.Visible = false;
                 Application.Exit();
             }
-            wallPaperBmp = SysLink.GetwallPaper();
+
+            wallPaperBmp = ShareClass.gWallPaperBmp();
             args = Environment.GetCommandLineArgs();
             loadConfig();
             if (Settings.Default.Timeout >= 60)
@@ -95,7 +96,7 @@ namespace MFAScreenLockApp
             timer_lock.Enabled = false;
             lockallscreen(true, wallPaperBmp);
             FormLock formlock = new FormLock();
-            formlock.wallPaperBmp = wallPaperBmp;
+            formlock.setBackgroundImage(wallPaperBmp);
             formlock.ShowDialog();
             formlock.ws = 0;
             lockallscreen(false, wallPaperBmp);
@@ -125,7 +126,7 @@ namespace MFAScreenLockApp
                     locksub.Left = area.Left;
                     locksub.Show();
                     locksub.WindowState = FormWindowState.Maximized;
-                    locksub.wallPaperBmp = wallPaperBmp;
+                    locksub.setBackgroundImage(wallPaperBmp);
                     formLockSubList.Add(locksub);
                 }
             }
@@ -166,7 +167,7 @@ namespace MFAScreenLockApp
                 timer_lock.Enabled = false;
                 FormLock formlock = new FormLock();
                 formlock.lbl_info.Text = "正在修改绑定设置";
-                formlock.wallPaperBmp = wallPaperBmp;
+                formlock.setBackgroundImage(wallPaperBmp);
                 formlock.ShowDialog();
                 lockallscreen(false, wallPaperBmp);
                 if (formlock.ws == 1)
@@ -194,7 +195,7 @@ namespace MFAScreenLockApp
             timer_lock.Enabled = false;
             FormLock formlock = new FormLock();
             formlock.lbl_info.Text = "正在尝试退出软件";
-            formlock.wallPaperBmp = wallPaperBmp;
+            formlock.setBackgroundImage(wallPaperBmp);
             formlock.ShowDialog();
             lockallscreen(false, wallPaperBmp);
             if (formlock.ws == 1)
