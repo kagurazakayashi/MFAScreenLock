@@ -31,25 +31,22 @@ namespace MFAScreenLockApp
             }));
             版本ToolStripMenuItem.Text = "版本：" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string programname = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
-            System.Diagnostics.Process[] myProcesses = System.Diagnostics.Process.GetProcessesByName(programname);//获取指定的进程名   
-            Thread.Sleep(500);
-            if (myProcesses.Length > 1) //如果可以获取到知道的进程名则说明已经启动
+            System.Diagnostics.Process[] myProcesses = System.Diagnostics.Process.GetProcessesByName(programname);//获取指定的进程名
+            wallPaperBmp = ShareClass.gWallPaperBmp();
+            args = Environment.GetCommandLineArgs();
+            if (loadConfig() && myProcesses.Length > 1) //如果可以获取到知道的进程名则说明已经启动
             {
                 MessageBox.Show("程序已经启动，请查看任务栏中的图标。\n在图标上点击右键可以打开菜单。\n如果不需要验证后驻留后台，请添加 -e 参数。","程序已在运行",MessageBoxButtons.OK,MessageBoxIcon.Error);
                 notifyIcon1.Visible = false;
                 Application.Exit();
             }
-
-            wallPaperBmp = ShareClass.gWallPaperBmp();
-            args = Environment.GetCommandLineArgs();
-            loadConfig();
             if (Settings.Default.Timeout >= 60)
             {
                 timer_lock.Enabled = true;
             }
         }
 
-        private void loadConfig()
+        private bool loadConfig()
         {
             if (args.Length > 2 && args[1] == "-r" && args[2] == Settings.Default.RecoveryCode)
             {
@@ -85,10 +82,16 @@ namespace MFAScreenLockApp
                 formuser.ws = 0;
                 timer_lock.Enabled = true;
             }
+            else if (args.Length > 1 && args[1] == "--restart")
+            {
+                
+            }
             else
             {
                 locknow();
+                return true;
             }
+            return false;
         }
 
         private void locknow()
@@ -166,7 +169,7 @@ namespace MFAScreenLockApp
                 lockallscreen(true, wallPaperBmp);
                 timer_lock.Enabled = false;
                 FormLock formlock = new FormLock();
-                formlock.lbl_info.Text = "正在修改绑定设置";
+                formlock.lbl_info.Text = "正在修改设置";
                 formlock.setBackgroundImage(wallPaperBmp);
                 formlock.ShowDialog();
                 lockallscreen(false, wallPaperBmp);
@@ -174,9 +177,17 @@ namespace MFAScreenLockApp
                 {
                     timer_lock.Enabled = false;
                     FormUser formuser = new FormUser();
-                    formuser.tabControl1.SelectedIndex = tabindex;
-                    formuser.ShowDialog();
+                    if (tabindex == 2)
+                    {
+                        formuser.displayPreview = true;
+                    }
+                    else
+                    {
+                        formuser.tabControl1.SelectedIndex = tabindex;
+                    }
                     formuser.ws = 0;
+                    formuser.ShowDialog();
+                    Restart("--restart");
                 }
                 timer_lock.Enabled = true;
                 formlock.ws = 0;
@@ -207,10 +218,12 @@ namespace MFAScreenLockApp
             timer_lock.Enabled = true;
         }
 
-        private void Restart()
+        private void Restart(string arguments = "")
         {
+            notifyIcon1.Visible = false;
             Process ps = new Process();
             ps.StartInfo.FileName = Application.ExecutablePath.ToString();
+            ps.StartInfo.Arguments = arguments;
             ps.Start();
             Application.Exit();
         }
@@ -242,6 +255,11 @@ namespace MFAScreenLockApp
             {
                 System.Diagnostics.Process.Start("https://github.com/kagurazakayashi/MFAScreenLock");
             }
+        }
+
+        private void 个性化ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            openconfig(2);
         }
     }
 }

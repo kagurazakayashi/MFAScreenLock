@@ -20,6 +20,7 @@ namespace MFAScreenLockApp
         private int selectFontItem = -1;
         private bool loadOK = false;
         public int ws = 0;
+        public bool displayPreview = false;
 
         public FormUser()
         {
@@ -91,10 +92,11 @@ namespace MFAScreenLockApp
             btn_bind.Enabled = true;
         }
 
-        private void Restart()
+        private void Restart(string arguments = "")
         {
             Process ps = new Process();
             ps.StartInfo.FileName = Application.ExecutablePath.ToString();
+            ps.StartInfo.Arguments = arguments;
             ps.Start();
             Application.Exit();
         }
@@ -173,7 +175,7 @@ namespace MFAScreenLockApp
             }
             catch (Exception)
             {
-                MessageBox.Show("请将本程序退出，然后右键选择「以管理员方式运行」，再修改此设置。", "访问被拒绝",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("请将本程序退出，然后右键选择「以管理员方式运行」，再修改此设置。", "访问被拒绝", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -184,6 +186,11 @@ namespace MFAScreenLockApp
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            if (displayPreview)
+            {
+                tabControl1.SelectedIndex = 2;
+                displayPreview = false;
+            }
             double idles = SysLink.GetIdleTime();
             lbl_timeout.Text = (idles / 1000.0).ToString();
             if (idles <= prog_timeout.Maximum)

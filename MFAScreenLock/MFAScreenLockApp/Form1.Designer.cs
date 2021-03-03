@@ -32,17 +32,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.立即锁定LToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.雅诗MFA动态密码锁定器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.版本ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.timer_lock = new System.Windows.Forms.Timer(this.components);
+            this.立即锁定LToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.账户管理UToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.个性化ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助和关于HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer_lock = new System.Windows.Forms.Timer(this.components);
-            this.版本ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.雅诗MFA动态密码锁定器ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,11 +65,46 @@
             this.toolStripSeparator1,
             this.toolStripMenuItem2,
             this.账户管理UToolStripMenuItem,
+            this.个性化ToolStripMenuItem,
             this.toolStripMenuItem1,
             this.帮助和关于HToolStripMenuItem,
             this.退出EToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(211, 198);
+            // 
+            // 雅诗MFA动态密码锁定器ToolStripMenuItem
+            // 
+            this.雅诗MFA动态密码锁定器ToolStripMenuItem.Enabled = false;
+            this.雅诗MFA动态密码锁定器ToolStripMenuItem.Name = "雅诗MFA动态密码锁定器ToolStripMenuItem";
+            this.雅诗MFA动态密码锁定器ToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.雅诗MFA动态密码锁定器ToolStripMenuItem.Text = "雅诗MFA动态密码锁定器";
+            // 
+            // 版本ToolStripMenuItem
+            // 
+            this.版本ToolStripMenuItem.Enabled = false;
+            this.版本ToolStripMenuItem.Name = "版本ToolStripMenuItem";
+            this.版本ToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.版本ToolStripMenuItem.Text = "版本：";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(207, 6);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(207, 6);
+            // 
+            // timer_lock
+            // 
+            this.timer_lock.Interval = 1000;
+            this.timer_lock.Tick += new System.EventHandler(this.timer_lock_Tick);
             // 
             // 立即锁定LToolStripMenuItem
             // 
@@ -77,11 +113,6 @@
             this.立即锁定LToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.立即锁定LToolStripMenuItem.Text = "立即锁定 (&L)";
             this.立即锁定LToolStripMenuItem.Click += new System.EventHandler(this.立即锁定LToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(207, 6);
             // 
             // toolStripMenuItem2
             // 
@@ -99,10 +130,13 @@
             this.账户管理UToolStripMenuItem.Text = "自动锁定设置 (&A)";
             this.账户管理UToolStripMenuItem.Click += new System.EventHandler(this.账户管理UToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem1
+            // 个性化ToolStripMenuItem
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(207, 6);
+            this.个性化ToolStripMenuItem.Image = global::MFAScreenLockApp.Properties.Resources.baseline_brush_black_24dp;
+            this.个性化ToolStripMenuItem.Name = "个性化ToolStripMenuItem";
+            this.个性化ToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.个性化ToolStripMenuItem.Text = "个性化 (&R)";
+            this.个性化ToolStripMenuItem.Click += new System.EventHandler(this.个性化ToolStripMenuItem_Click);
             // 
             // 帮助和关于HToolStripMenuItem
             // 
@@ -119,30 +153,6 @@
             this.退出EToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
             this.退出EToolStripMenuItem.Text = "退出 (&E)";
             this.退出EToolStripMenuItem.Click += new System.EventHandler(this.退出EToolStripMenuItem_Click);
-            // 
-            // timer_lock
-            // 
-            this.timer_lock.Interval = 1000;
-            this.timer_lock.Tick += new System.EventHandler(this.timer_lock_Tick);
-            // 
-            // 版本ToolStripMenuItem
-            // 
-            this.版本ToolStripMenuItem.Enabled = false;
-            this.版本ToolStripMenuItem.Name = "版本ToolStripMenuItem";
-            this.版本ToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
-            this.版本ToolStripMenuItem.Text = "版本：";
-            // 
-            // 雅诗MFA动态密码锁定器ToolStripMenuItem
-            // 
-            this.雅诗MFA动态密码锁定器ToolStripMenuItem.Enabled = false;
-            this.雅诗MFA动态密码锁定器ToolStripMenuItem.Name = "雅诗MFA动态密码锁定器ToolStripMenuItem";
-            this.雅诗MFA动态密码锁定器ToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
-            this.雅诗MFA动态密码锁定器ToolStripMenuItem.Text = "雅诗MFA动态密码锁定器";
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(207, 6);
             // 
             // Form1
             // 
@@ -183,6 +193,7 @@
         private System.Windows.Forms.ToolStripMenuItem 版本ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 雅诗MFA动态密码锁定器ToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem 个性化ToolStripMenuItem;
     }
 }
 

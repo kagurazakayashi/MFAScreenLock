@@ -35,6 +35,16 @@ namespace MFAScreenLockApp
             //tableLayoutPanel2.BackColor = Color.FromArgb(0, tableLayoutPanel2.BackColor);
         }
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams paras = base.CreateParams;
+                paras.ExStyle |= 0x02000000;
+                return paras;
+            }
+        }
+
         public void setBackgroundImage(Bitmap wallPaperBmp)
         {
             this.wallPaperBmp = wallPaperBmp;
