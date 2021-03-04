@@ -261,7 +261,7 @@ namespace MFAScreenLockApp
             combo_font.Items.Add("日期字体：" + formlock.lbl_date.Font.ToString());
             combo_font.Items.Add("用户名字体：" + formlock.lbl_user.Font.ToString());
             combo_font.Items.Add("提示信息字体：" + formlock.lbl_info.Font.ToString());
-            combo_font.Items.Add("密码输入框字体：" + formlock.txt_pwdcode.Font.ToString());
+            //combo_font.Items.Add("密码输入框字体：" + formlock.txt_pwdcode.Font.ToString());
             combo_font.Items.Add("其他字体：" + formlock.Font.ToString());
         }
 
@@ -285,11 +285,11 @@ namespace MFAScreenLockApp
                     fontDialog1.Font = formlock.lbl_info.Font;
                     fontDialog1.Color = formlock.lbl_info.ForeColor;
                     break;
+                //case 4:
+                    //fontDialog1.Font = formlock.txt_pwdcode.Font;
+                    //fontDialog1.Color = formlock.txt_pwdcode.ForeColor;
+                    //break;
                 case 4:
-                    fontDialog1.Font = formlock.txt_pwdcode.Font;
-                    fontDialog1.Color = formlock.txt_pwdcode.ForeColor;
-                    break;
-                case 5:
                     fontDialog1.Font = formlock.Font;
                     fontDialog1.Color = formlock.ForeColor;
                     break;
@@ -336,16 +336,16 @@ namespace MFAScreenLockApp
                             formlock.lbl_info.ForeColor = fontDialog1.Color;
                         }
                         break;
+                    //case 4:
+                        //Settings.Default.FontInput = fontDialog1.Font;
+                        //formlock.txt_pwdcode.Font = fontDialog1.Font;
+                        //if (!check_autocolor.Checked)
+                        //{
+                        //    Settings.Default.ColorInput = fontDialog1.Color;
+                        //    formlock.txt_pwdcode.ForeColor = fontDialog1.Color;
+                        //}
+                        //break;
                     case 4:
-                        Settings.Default.FontInput = fontDialog1.Font;
-                        formlock.txt_pwdcode.Font = fontDialog1.Font;
-                        if (!check_autocolor.Checked)
-                        {
-                            Settings.Default.ColorInput = fontDialog1.Color;
-                            formlock.txt_pwdcode.ForeColor = fontDialog1.Color;
-                        }
-                        break;
-                    case 5:
                         Settings.Default.FontMenu = fontDialog1.Font;
                         formlock.Font = fontDialog1.Font;
                         if (!check_autocolor.Checked)

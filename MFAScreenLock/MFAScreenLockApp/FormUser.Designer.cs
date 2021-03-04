@@ -43,8 +43,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btn_rmsetting = new System.Windows.Forms.LinkLabel();
-            this.btn_bind = new System.Windows.Forms.Button();
-            this.btn_unbind = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -66,6 +64,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.btn_bind = new System.Windows.Forms.Button();
+            this.btn_unbind = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -228,38 +228,6 @@
             this.btn_rmsetting.TabStop = true;
             this.btn_rmsetting.Text = "删除所有设置 (&R)";
             this.btn_rmsetting.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btn_rmsetting_LinkClicked);
-            // 
-            // btn_bind
-            // 
-            this.btn_bind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_bind.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_bind.Enabled = false;
-            this.btn_bind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_on_2x;
-            this.btn_bind.Location = new System.Drawing.Point(389, 218);
-            this.btn_bind.Name = "btn_bind";
-            this.btn_bind.Size = new System.Drawing.Size(197, 72);
-            this.btn_bind.TabIndex = 2;
-            this.btn_bind.Text = "开始进行绑定 (&B)";
-            this.btn_bind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btn_bind.UseVisualStyleBackColor = true;
-            this.btn_bind.Visible = false;
-            this.btn_bind.Click += new System.EventHandler(this.btn_bind_Click);
-            // 
-            // btn_unbind
-            // 
-            this.btn_unbind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_unbind.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_unbind.Enabled = false;
-            this.btn_unbind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_off_2x;
-            this.btn_unbind.Location = new System.Drawing.Point(394, 218);
-            this.btn_unbind.Name = "btn_unbind";
-            this.btn_unbind.Size = new System.Drawing.Size(192, 72);
-            this.btn_unbind.TabIndex = 7;
-            this.btn_unbind.Text = "解除绑定 (&U)";
-            this.btn_unbind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btn_unbind.UseVisualStyleBackColor = true;
-            this.btn_unbind.Visible = false;
-            this.btn_unbind.Click += new System.EventHandler(this.btn_unbind_Click);
             // 
             // tabPage2
             // 
@@ -513,6 +481,38 @@
             this.openFileDialog1.FileName = "openFileDialog1";
             this.openFileDialog1.Filter = resources.GetString("openFileDialog1.Filter");
             this.openFileDialog1.Title = "选择一个图像文件作为背景图";
+            // 
+            // btn_bind
+            // 
+            this.btn_bind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_bind.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_bind.Enabled = false;
+            this.btn_bind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_on_2x;
+            this.btn_bind.Location = new System.Drawing.Point(383, 218);
+            this.btn_bind.Name = "btn_bind";
+            this.btn_bind.Size = new System.Drawing.Size(197, 72);
+            this.btn_bind.TabIndex = 2;
+            this.btn_bind.Text = "开始进行绑定 (&B)";
+            this.btn_bind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_bind.UseVisualStyleBackColor = true;
+            this.btn_bind.Visible = false;
+            this.btn_bind.Click += new System.EventHandler(this.btn_bind_Click);
+            // 
+            // btn_unbind
+            // 
+            this.btn_unbind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_unbind.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_unbind.Enabled = false;
+            this.btn_unbind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_off_2x;
+            this.btn_unbind.Location = new System.Drawing.Point(388, 218);
+            this.btn_unbind.Name = "btn_unbind";
+            this.btn_unbind.Size = new System.Drawing.Size(192, 72);
+            this.btn_unbind.TabIndex = 7;
+            this.btn_unbind.Text = "解除绑定 (&U)";
+            this.btn_unbind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_unbind.UseVisualStyleBackColor = true;
+            this.btn_unbind.Visible = false;
+            this.btn_unbind.Click += new System.EventHandler(this.btn_unbind_Click);
             // 
             // FormUser
             // 

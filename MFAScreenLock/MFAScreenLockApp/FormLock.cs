@@ -28,6 +28,7 @@ namespace MFAScreenLockApp
         private Bitmap wallPaperBmp;
         private double wallPaperlig = -1;
         public bool previewMode = false;
+        private int pwdEnableTime = 3;
 
         public FormLock()
         {
@@ -45,12 +46,11 @@ namespace MFAScreenLockApp
             }
         }
 
-        public void setBackgroundImage(Bitmap wallPaperBmp)
+        public void setBackgroundImage(Bitmap newWallPaperBmp)
         {
-            this.wallPaperBmp = wallPaperBmp;
-            if (wallPaperBmp != null)
+            if (newWallPaperBmp != null)
             {
-                BackgroundImage = ShareClass.autoScaleBitmap(wallPaperBmp, Size);
+                BackgroundImage = ShareClass.autoScaleBitmap(newWallPaperBmp, Size);
             }
             BackgroundImageLayout = ShareClass.imageLayout();
         }
@@ -76,6 +76,12 @@ namespace MFAScreenLockApp
             DateTime now = DateTime.Now;
             lbl_time.Text = now.Hour.ToString().PadLeft(2, '0') + ":" + now.Minute.ToString().PadLeft(2, '0') + ":" + now.Second.ToString().PadLeft(2, '0');
             lbl_date.Text = now.Year.ToString() + " 年 " + now.Month.ToString() + " 月 " + now.Day.ToString() + " 日 ";
+        }
+
+        public void stopTimer()
+        {
+            timer1.Enabled = false;
+            timer2.Enabled = false;
         }
 
         private void label5_Click(object sender, EventArgs e)
@@ -123,10 +129,10 @@ namespace MFAScreenLockApp
             Close();
         }
 
-        private void txt_pwdcode_TextChanged(object sender, EventArgs e)
+        private void enter()
         {
             // DEBUG!
-            if (txt_pwdcode.Text == "1")
+            if (txt_pwdcode.Text == "")
             {
                 ws = 1;
                 Close();
@@ -149,6 +155,11 @@ namespace MFAScreenLockApp
                     Close();
                 }
             }
+        }
+
+        private void txt_pwdcode_TextChanged(object sender, EventArgs e)
+        {
+            //enter();
         }
 
         private Color gColor()
@@ -218,19 +229,21 @@ namespace MFAScreenLockApp
             if (nc && Settings.Default.ColorInfo != null)
             {
                 lbl_info.ForeColor = Settings.Default.ColorInfo;
+                btn_enter.ForeColor = Settings.Default.ColorInfo;
             }
             else
             {
                 lbl_info.ForeColor = gColor();
+                btn_enter.ForeColor = lbl_info.ForeColor;
             }
-            if (nc && Settings.Default.ColorInput != null)
-            {
-                txt_pwdcode.ForeColor = Settings.Default.ColorInput;
-            }
-            else
-            {
-                txt_pwdcode.ForeColor = gColor();
-            }
+            //if (nc && Settings.Default.ColorInput != null)
+            //{
+            //    txt_pwdcode.ForeColor = Settings.Default.ColorInput;
+            //}
+            //else
+            //{
+            //    txt_pwdcode.ForeColor = gColor();
+            //}
             if (nc && Settings.Default.ColorMenu != null)
             {
                 ForeColor = Settings.Default.ColorMenu;
@@ -279,6 +292,29 @@ namespace MFAScreenLockApp
         {
             if (wallPaperBmp != null) wallPaperBmp.Dispose();
             Dispose();
+        }
+
+        private void txt_pwdcode_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Control || e.KeyCode == Keys.Enter)
+            {
+                enter();
+            }
+        }
+
+        private void btn_enter_Click(object sender, EventArgs e)
+        {
+            enter();
+        }
+
+        private void passwordError()
+        {
+
+        }
+
+        private void timer_err_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }

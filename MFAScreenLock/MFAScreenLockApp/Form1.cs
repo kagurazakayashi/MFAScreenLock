@@ -18,6 +18,7 @@ namespace MFAScreenLockApp
         private Bitmap wallPaperBmp;
         private List<FormLockSub> formLockSubList = new List<FormLockSub>();
         private string[] args;
+        private Boolean debugMode = true;
 
         public Form1()
         {
@@ -100,6 +101,10 @@ namespace MFAScreenLockApp
             lockallscreen(true, wallPaperBmp);
             FormLock formlock = new FormLock();
             formlock.setBackgroundImage(wallPaperBmp);
+            if (debugMode)
+            {
+                formlock.TopMost = false;
+            }
             formlock.ShowDialog();
             formlock.ws = 0;
             lockallscreen(false, wallPaperBmp);
@@ -118,6 +123,7 @@ namespace MFAScreenLockApp
 
         private void lockallscreen(bool islock = true, Bitmap wallPaperBmp = null)
         {
+            if (debugMode) return;
             if (islock)
             {
                 Screen[] screens = Screen.AllScreens;

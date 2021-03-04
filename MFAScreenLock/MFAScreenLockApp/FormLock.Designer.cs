@@ -49,12 +49,14 @@
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
-            this.userimage = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lbl_date = new System.Windows.Forms.Label();
             this.lbl_time = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.btn_enter = new System.Windows.Forms.Button();
+            this.userimage = new System.Windows.Forms.Panel();
+            this.timer_err = new System.Windows.Forms.Timer(this.components);
             this.softkeyboard.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -92,14 +94,17 @@
             this.txt_pwdcode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_pwdcode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txt_pwdcode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txt_pwdcode.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_pwdcode.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.txt_pwdcode.Location = new System.Drawing.Point(0, 92);
             this.txt_pwdcode.MaxLength = 35;
             this.txt_pwdcode.Name = "txt_pwdcode";
-            this.txt_pwdcode.Size = new System.Drawing.Size(294, 39);
-            this.txt_pwdcode.TabIndex = 5;
-            this.txt_pwdcode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt_pwdcode.Size = new System.Drawing.Size(256, 39);
+            this.txt_pwdcode.TabIndex = 0;
+            this.txt_pwdcode.WordWrap = false;
             this.txt_pwdcode.TextChanged += new System.EventHandler(this.txt_pwdcode_TextChanged);
+            this.txt_pwdcode.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_pwdcode_KeyUp);
             // 
             // softkeyboard
             // 
@@ -137,6 +142,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button12.BackColor = System.Drawing.Color.Transparent;
+            this.button12.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button12.Font = new System.Drawing.Font("Consolas", 30F);
             this.button12.Location = new System.Drawing.Point(145, 219);
@@ -153,6 +159,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button9.BackColor = System.Drawing.Color.Transparent;
+            this.button9.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.Font = new System.Drawing.Font("Consolas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button9.Location = new System.Drawing.Point(145, 147);
@@ -169,6 +176,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button8.BackColor = System.Drawing.Color.Transparent;
+            this.button8.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.Font = new System.Drawing.Font("Consolas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button8.Location = new System.Drawing.Point(74, 147);
@@ -185,6 +193,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button7.BackColor = System.Drawing.Color.Transparent;
+            this.button7.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Font = new System.Drawing.Font("Consolas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.Location = new System.Drawing.Point(3, 147);
@@ -201,6 +210,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button6.BackColor = System.Drawing.Color.Transparent;
+            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Font = new System.Drawing.Font("Consolas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.Location = new System.Drawing.Point(145, 75);
@@ -217,6 +227,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button5.BackColor = System.Drawing.Color.Transparent;
+            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Consolas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button5.Location = new System.Drawing.Point(74, 75);
@@ -233,6 +244,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button4.BackColor = System.Drawing.Color.Transparent;
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Consolas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.Location = new System.Drawing.Point(3, 75);
@@ -249,6 +261,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.BackColor = System.Drawing.Color.Transparent;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Consolas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.Location = new System.Drawing.Point(145, 3);
@@ -265,6 +278,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Consolas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.Location = new System.Drawing.Point(74, 3);
@@ -281,6 +295,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.BackColor = System.Drawing.Color.Transparent;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Consolas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Location = new System.Drawing.Point(3, 3);
@@ -297,6 +312,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button10.BackColor = System.Drawing.Color.Transparent;
+            this.button10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.Font = new System.Drawing.Font("Consolas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button10.Location = new System.Drawing.Point(74, 219);
@@ -313,6 +329,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button11.BackColor = System.Drawing.Color.Transparent;
+            this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button11.Font = new System.Drawing.Font("Consolas", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button11.Location = new System.Drawing.Point(3, 219);
@@ -347,6 +364,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btn_enter);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.txt_pwdcode);
             this.panel1.Controls.Add(this.lbl_user);
@@ -370,17 +388,6 @@
             this.label5.Text = "屏幕键盘";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // userimage
-            // 
-            this.userimage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.userimage.BackgroundImage = global::MFAScreenLockApp.Properties.Resources.ic_account_circle_white_48dp;
-            this.userimage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.userimage.Location = new System.Drawing.Point(473, 145);
-            this.userimage.Name = "userimage";
-            this.userimage.Size = new System.Drawing.Size(294, 180);
-            this.userimage.TabIndex = 1;
             // 
             // panel3
             // 
@@ -431,6 +438,37 @@
             this.timer2.Interval = 10;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // btn_enter
+            // 
+            this.btn_enter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_enter.BackColor = System.Drawing.Color.Transparent;
+            this.btn_enter.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_enter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_enter.Font = new System.Drawing.Font("Consolas", 18F);
+            this.btn_enter.Location = new System.Drawing.Point(254, 92);
+            this.btn_enter.Name = "btn_enter";
+            this.btn_enter.Size = new System.Drawing.Size(40, 39);
+            this.btn_enter.TabIndex = 7;
+            this.btn_enter.Text = "→";
+            this.btn_enter.UseVisualStyleBackColor = false;
+            this.btn_enter.Click += new System.EventHandler(this.btn_enter_Click);
+            // 
+            // userimage
+            // 
+            this.userimage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.userimage.BackgroundImage = global::MFAScreenLockApp.Properties.Resources.user;
+            this.userimage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.userimage.Location = new System.Drawing.Point(473, 128);
+            this.userimage.Name = "userimage";
+            this.userimage.Size = new System.Drawing.Size(294, 197);
+            this.userimage.TabIndex = 1;
+            // 
+            // timer_err
+            // 
+            this.timer_err.Interval = 1000;
+            this.timer_err.Tick += new System.EventHandler(this.timer_err_Tick);
+            // 
             // FormLock
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -449,6 +487,7 @@
             this.MinimizeBox = false;
             this.Name = "FormLock";
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormLock_FormClosing);
@@ -489,5 +528,7 @@
         public System.Windows.Forms.Label lbl_date;
         public System.Windows.Forms.Label lbl_time;
         public System.Windows.Forms.TextBox txt_pwdcode;
+        private System.Windows.Forms.Button btn_enter;
+        private System.Windows.Forms.Timer timer_err;
     }
 }

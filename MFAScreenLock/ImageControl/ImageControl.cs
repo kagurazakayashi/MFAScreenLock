@@ -12,6 +12,10 @@ namespace MFAScreenLockApp
     {
         public static double CalculateAverageLightness(Bitmap bm)
         {
+            if (bm == null)
+            {
+                return 0;
+            }
             double lum = 0;
             var tmpBmp = new Bitmap(bm);
             var width = bm.Width;
