@@ -17,11 +17,11 @@ namespace MFAScreenLockApp
             InitializeComponent();
         }
 
-        public void setBackgroundImage(Bitmap wallPaperBmp)
+        public void setBackgroundImage(Bitmap wallPaperBmp, Size toSize)
         {
             if (wallPaperBmp != null)
             {
-                BackgroundImage = ShareClass.autoScaleBitmap(wallPaperBmp, Size);
+                BackgroundImage = ShareClass.autoScaleBitmap(wallPaperBmp, toSize);
             }
             BackgroundImageLayout = ShareClass.imageLayout();
         }
@@ -34,6 +34,11 @@ namespace MFAScreenLockApp
         ~FormLockSub()
         {
             Dispose();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.TopMost = true;
         }
     }
 }

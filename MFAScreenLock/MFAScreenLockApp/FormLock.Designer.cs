@@ -48,15 +48,16 @@
             this.button11 = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btn_enter = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.userimage = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.lbl_date = new System.Windows.Forms.Label();
             this.lbl_time = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.btn_enter = new System.Windows.Forms.Button();
-            this.userimage = new System.Windows.Forms.Panel();
             this.timer_err = new System.Windows.Forms.Timer(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.softkeyboard.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -95,14 +96,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_pwdcode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txt_pwdcode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txt_pwdcode.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_pwdcode.ContextMenuStrip = this.contextMenuStrip1;
+            this.txt_pwdcode.Font = new System.Drawing.Font("Consolas", 20F);
             this.txt_pwdcode.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.txt_pwdcode.Location = new System.Drawing.Point(0, 92);
+            this.txt_pwdcode.Margin = new System.Windows.Forms.Padding(0);
             this.txt_pwdcode.MaxLength = 35;
             this.txt_pwdcode.Name = "txt_pwdcode";
             this.txt_pwdcode.Size = new System.Drawing.Size(256, 39);
             this.txt_pwdcode.TabIndex = 0;
+            this.txt_pwdcode.UseSystemPasswordChar = true;
             this.txt_pwdcode.WordWrap = false;
+            this.txt_pwdcode.SizeChanged += new System.EventHandler(this.txt_pwdcode_SizeChanged);
             this.txt_pwdcode.TextChanged += new System.EventHandler(this.txt_pwdcode_TextChanged);
             this.txt_pwdcode.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_pwdcode_KeyUp);
             // 
@@ -375,6 +380,22 @@
             this.panel1.Size = new System.Drawing.Size(294, 323);
             this.panel1.TabIndex = 0;
             // 
+            // btn_enter
+            // 
+            this.btn_enter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_enter.BackColor = System.Drawing.Color.Transparent;
+            this.btn_enter.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_enter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn_enter.Font = new System.Drawing.Font("Consolas", 18F);
+            this.btn_enter.Location = new System.Drawing.Point(254, 92);
+            this.btn_enter.Margin = new System.Windows.Forms.Padding(0);
+            this.btn_enter.Name = "btn_enter";
+            this.btn_enter.Size = new System.Drawing.Size(40, 39);
+            this.btn_enter.TabIndex = 7;
+            this.btn_enter.Text = "→";
+            this.btn_enter.UseVisualStyleBackColor = false;
+            this.btn_enter.Click += new System.EventHandler(this.btn_enter_Click);
+            // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -388,6 +409,17 @@
             this.label5.Text = "屏幕键盘";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // userimage
+            // 
+            this.userimage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.userimage.BackgroundImage = global::MFAScreenLockApp.Properties.Resources.user;
+            this.userimage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.userimage.Location = new System.Drawing.Point(473, 128);
+            this.userimage.Name = "userimage";
+            this.userimage.Size = new System.Drawing.Size(294, 197);
+            this.userimage.TabIndex = 1;
             // 
             // panel3
             // 
@@ -438,36 +470,15 @@
             this.timer2.Interval = 10;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // btn_enter
-            // 
-            this.btn_enter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_enter.BackColor = System.Drawing.Color.Transparent;
-            this.btn_enter.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_enter.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btn_enter.Font = new System.Drawing.Font("Consolas", 18F);
-            this.btn_enter.Location = new System.Drawing.Point(254, 92);
-            this.btn_enter.Name = "btn_enter";
-            this.btn_enter.Size = new System.Drawing.Size(40, 39);
-            this.btn_enter.TabIndex = 7;
-            this.btn_enter.Text = "→";
-            this.btn_enter.UseVisualStyleBackColor = false;
-            this.btn_enter.Click += new System.EventHandler(this.btn_enter_Click);
-            // 
-            // userimage
-            // 
-            this.userimage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.userimage.BackgroundImage = global::MFAScreenLockApp.Properties.Resources.user;
-            this.userimage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.userimage.Location = new System.Drawing.Point(473, 128);
-            this.userimage.Name = "userimage";
-            this.userimage.Size = new System.Drawing.Size(294, 197);
-            this.userimage.TabIndex = 1;
-            // 
             // timer_err
             // 
             this.timer_err.Interval = 1000;
             this.timer_err.Tick += new System.EventHandler(this.timer_err_Tick);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // FormLock
             // 
@@ -530,5 +541,6 @@
         public System.Windows.Forms.TextBox txt_pwdcode;
         private System.Windows.Forms.Button btn_enter;
         private System.Windows.Forms.Timer timer_err;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

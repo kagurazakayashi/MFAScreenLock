@@ -28,12 +28,15 @@ namespace MFAScreenLockApp
         private Bitmap wallPaperBmp;
         private double wallPaperlig = -1;
         public bool previewMode = false;
-        private int pwdEnableTime = 3;
+        private int pwdEnableTime = 0;
+        private int pwdEnableNow = 0;
+        public Boolean debugMode = false;
 
         public FormLock()
         {
             InitializeComponent();
-            //tableLayoutPanel2.BackColor = Color.FromArgb(0, tableLayoutPanel2.BackColor);
+            btn_enter.Width = txt_pwdcode.Height;
+            btn_enter.Height = txt_pwdcode.Height;
         }
 
         protected override CreateParams CreateParams
@@ -50,7 +53,8 @@ namespace MFAScreenLockApp
         {
             if (newWallPaperBmp != null)
             {
-                BackgroundImage = ShareClass.autoScaleBitmap(newWallPaperBmp, Size);
+                Size toSize = SystemInformation.PrimaryMonitorSize;
+                BackgroundImage = ShareClass.autoScaleBitmap(newWallPaperBmp, toSize);
             }
             BackgroundImageLayout = ShareClass.imageLayout();
         }
@@ -131,14 +135,15 @@ namespace MFAScreenLockApp
 
         private void enter()
         {
-            // DEBUG!
-            if (txt_pwdcode.Text == "")
+            if (debugMode)
             {
                 ws = 1;
                 Close();
             }
-            //
-            if (previewMode) return;
+            if (previewMode)
+            {
+                return;
+            }
             if (txt_pwdcode.Text.Length == 6)
             {
                 if (pass(txt_pwdcode.Text))
@@ -154,6 +159,10 @@ namespace MFAScreenLockApp
                     ws = 1;
                     Close();
                 }
+            }
+            if (ws != 1)
+            {
+                passwordError();
             }
         }
 
@@ -309,12 +318,43 @@ namespace MFAScreenLockApp
 
         private void passwordError()
         {
-
+            txt_pwdcode.Font = new Font(this.Font.FontFamily,20);
+            txt_pwdcode.UseSystemPasswordChar = false;
+            txt_pwdcode.Text = "密码不正确";
+            txt_pwdcode.BackColor = Color.Tomato;
+            txt_pwdcode.ForeColor = Color.Black;
+            btn_enter.Text = "";
+            txt_pwdcode.Enabled = btn_enter.Enabled = label5.Enabled = softkeyboard.Visible = false;
+            pwdEnableTime = Settings.Default.ErrLock;
+            pwdEnableNow = Settings.Default.ErrLock;
+            timer_err.Enabled = true;
         }
 
         private void timer_err_Tick(object sender, EventArgs e)
         {
+            pwdEnableNow--;
+            if (pwdEnableNow < 0)
+            {
+                txt_pwdcode.Font = new Font("Consolas", 20);
+                txt_pwdcode.UseSystemPasswordChar = true;
+                txt_pwdcode.Text = "";
+                txt_pwdcode.BackColor = SystemColors.Window;
+                txt_pwdcode.ForeColor = SystemColors.WindowText;
+                txt_pwdcode.Enabled = btn_enter.Enabled = label5.Enabled = true;
+                btn_enter.Text = "→";
+                timer_err.Enabled = false;
+                pwdEnableNow = 0;
+            }
+            else
+            {
+                txt_pwdcode.Text = "密码不正确 (" + pwdEnableNow.ToString() + ")";
+            }
+        }
 
+        private void txt_pwdcode_SizeChanged(object sender, EventArgs e)
+        {
+            btn_enter.Width = txt_pwdcode.Height;
+            btn_enter.Height = txt_pwdcode.Height;
         }
     }
 }
