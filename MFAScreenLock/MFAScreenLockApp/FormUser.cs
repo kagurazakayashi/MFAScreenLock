@@ -415,5 +415,10 @@ namespace MFAScreenLockApp
                 formlock.setBackgroundImage(ShareClass.gWallPaperBmp());
             }
         }
+
+        private void num_errlock_ValueChanged(object sender, EventArgs e)
+        {
+            Settings.Default.ErrLock = (int)num_errlock.Value;
+        }
     }
 }

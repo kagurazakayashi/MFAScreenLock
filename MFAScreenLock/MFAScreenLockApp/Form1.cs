@@ -18,7 +18,7 @@ namespace MFAScreenLockApp
         private Bitmap wallPaperBmp;
         private List<FormLockSub> formLockSubList = new List<FormLockSub>();
         private string[] args;
-        private Boolean debugMode = true;
+        private Boolean debugMode = false;
 
         public Form1()
         {
@@ -100,6 +100,7 @@ namespace MFAScreenLockApp
             timer_lock.Enabled = false;
             lockallscreen(true, wallPaperBmp);
             FormLock formlock = new FormLock();
+            formlock.debugMode = debugMode;
             formlock.setBackgroundImage(wallPaperBmp);
             if (debugMode)
             {
@@ -135,7 +136,10 @@ namespace MFAScreenLockApp
                     locksub.Left = area.Left;
                     locksub.Show();
                     locksub.WindowState = FormWindowState.Maximized;
-                    locksub.setBackgroundImage(wallPaperBmp);
+                    if (!screen.Primary)
+                    {
+                        locksub.setBackgroundImage(wallPaperBmp, area.Size);
+                    }
                     formLockSubList.Add(locksub);
                 }
             }
@@ -143,7 +147,7 @@ namespace MFAScreenLockApp
             {
                 foreach (FormLockSub locksub in formLockSubList)
                 {
-                    locksub.Hide();
+                    locksub.Close();
                 }
                 formLockSubList.RemoveAll(it => true);
             }
@@ -175,6 +179,7 @@ namespace MFAScreenLockApp
                 lockallscreen(true, wallPaperBmp);
                 timer_lock.Enabled = false;
                 FormLock formlock = new FormLock();
+                formlock.debugMode = debugMode;
                 formlock.lbl_info.Text = "正在修改设置";
                 formlock.setBackgroundImage(wallPaperBmp);
                 formlock.ShowDialog();
@@ -211,6 +216,7 @@ namespace MFAScreenLockApp
             lockallscreen(true, wallPaperBmp);
             timer_lock.Enabled = false;
             FormLock formlock = new FormLock();
+            formlock.debugMode = debugMode;
             formlock.lbl_info.Text = "正在尝试退出软件";
             formlock.setBackgroundImage(wallPaperBmp);
             formlock.ShowDialog();

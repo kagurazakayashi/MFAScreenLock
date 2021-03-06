@@ -43,6 +43,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btn_rmsetting = new System.Windows.Forms.LinkLabel();
+            this.btn_bind = new System.Windows.Forms.Button();
+            this.btn_unbind = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -64,8 +66,10 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.btn_bind = new System.Windows.Forms.Button();
-            this.btn_unbind = new System.Windows.Forms.Button();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.num_errlock = new System.Windows.Forms.NumericUpDown();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -76,6 +80,9 @@
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_errlock)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -215,7 +222,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(592, 303);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "验证器应用绑定";
+            this.tabPage1.Text = "验证器绑定";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // btn_rmsetting
@@ -229,16 +236,49 @@
             this.btn_rmsetting.Text = "删除所有设置 (&R)";
             this.btn_rmsetting.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btn_rmsetting_LinkClicked);
             // 
+            // btn_bind
+            // 
+            this.btn_bind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_bind.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_bind.Enabled = false;
+            this.btn_bind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_on_2x;
+            this.btn_bind.Location = new System.Drawing.Point(383, 218);
+            this.btn_bind.Name = "btn_bind";
+            this.btn_bind.Size = new System.Drawing.Size(197, 72);
+            this.btn_bind.TabIndex = 2;
+            this.btn_bind.Text = "开始进行绑定 (&B)";
+            this.btn_bind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_bind.UseVisualStyleBackColor = true;
+            this.btn_bind.Visible = false;
+            this.btn_bind.Click += new System.EventHandler(this.btn_bind_Click);
+            // 
+            // btn_unbind
+            // 
+            this.btn_unbind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_unbind.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn_unbind.Enabled = false;
+            this.btn_unbind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_off_2x;
+            this.btn_unbind.Location = new System.Drawing.Point(388, 218);
+            this.btn_unbind.Name = "btn_unbind";
+            this.btn_unbind.Size = new System.Drawing.Size(192, 72);
+            this.btn_unbind.TabIndex = 7;
+            this.btn_unbind.Text = "解除绑定 (&U)";
+            this.btn_unbind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_unbind.UseVisualStyleBackColor = true;
+            this.btn_unbind.Visible = false;
+            this.btn_unbind.Click += new System.EventHandler(this.btn_unbind_Click);
+            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox7);
+            this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.groupBox3);
-            this.tabPage2.Controls.Add(this.check_loginstart);
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(592, 303);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "自动锁定设置";
+            this.tabPage2.Text = "锁定设置";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox3
@@ -251,17 +291,18 @@
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.num_timeout);
             this.groupBox3.Controls.Add(this.check_timeoutenable);
-            this.groupBox3.Location = new System.Drawing.Point(6, 57);
+            this.groupBox3.Location = new System.Drawing.Point(6, 71);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(580, 154);
+            this.groupBox3.Size = new System.Drawing.Size(580, 115);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "不活动时锁定";
             // 
             // label6
             // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(203, 68);
+            this.label6.Location = new System.Drawing.Point(539, 69);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(23, 20);
             this.label6.TabIndex = 10;
@@ -269,9 +310,10 @@
             // 
             // lbl_timeout
             // 
+            this.lbl_timeout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_timeout.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lbl_timeout.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_timeout.Location = new System.Drawing.Point(86, 68);
+            this.lbl_timeout.Location = new System.Drawing.Point(422, 69);
             this.lbl_timeout.Name = "lbl_timeout";
             this.lbl_timeout.Size = new System.Drawing.Size(111, 20);
             this.lbl_timeout.TabIndex = 9;
@@ -282,10 +324,10 @@
             // 
             this.prog_timeout.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.prog_timeout.Location = new System.Drawing.Point(19, 107);
+            this.prog_timeout.Location = new System.Drawing.Point(20, 91);
             this.prog_timeout.Maximum = 60000;
             this.prog_timeout.Name = "prog_timeout";
-            this.prog_timeout.Size = new System.Drawing.Size(542, 23);
+            this.prog_timeout.Size = new System.Drawing.Size(537, 10);
             this.prog_timeout.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.prog_timeout.TabIndex = 8;
             // 
@@ -301,7 +343,7 @@
             // num_timeout
             // 
             this.num_timeout.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.num_timeout.Location = new System.Drawing.Point(75, 30);
+            this.num_timeout.Location = new System.Drawing.Point(74, 33);
             this.num_timeout.Maximum = new decimal(new int[] {
             60,
             0,
@@ -338,9 +380,9 @@
             // 
             this.check_loginstart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.check_loginstart.Location = new System.Drawing.Point(16, 18);
+            this.check_loginstart.Location = new System.Drawing.Point(19, 25);
             this.check_loginstart.Name = "check_loginstart";
-            this.check_loginstart.Size = new System.Drawing.Size(570, 24);
+            this.check_loginstart.Size = new System.Drawing.Size(555, 24);
             this.check_loginstart.TabIndex = 0;
             this.check_loginstart.Text = "跟随 Windows 登录进行锁定（只对当前用户生效）（&L)";
             this.check_loginstart.UseVisualStyleBackColor = true;
@@ -482,37 +524,55 @@
             this.openFileDialog1.Filter = resources.GetString("openFileDialog1.Filter");
             this.openFileDialog1.Title = "选择一个图像文件作为背景图";
             // 
-            // btn_bind
+            // groupBox6
             // 
-            this.btn_bind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_bind.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_bind.Enabled = false;
-            this.btn_bind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_on_2x;
-            this.btn_bind.Location = new System.Drawing.Point(383, 218);
-            this.btn_bind.Name = "btn_bind";
-            this.btn_bind.Size = new System.Drawing.Size(197, 72);
-            this.btn_bind.TabIndex = 2;
-            this.btn_bind.Text = "开始进行绑定 (&B)";
-            this.btn_bind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btn_bind.UseVisualStyleBackColor = true;
-            this.btn_bind.Visible = false;
-            this.btn_bind.Click += new System.EventHandler(this.btn_bind_Click);
+            this.groupBox6.Controls.Add(this.check_loginstart);
+            this.groupBox6.Location = new System.Drawing.Point(6, 6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(580, 59);
+            this.groupBox6.TabIndex = 5;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "自动锁定";
             // 
-            // btn_unbind
+            // groupBox7
             // 
-            this.btn_unbind.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_unbind.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_unbind.Enabled = false;
-            this.btn_unbind.Image = global::MFAScreenLockApp.Properties.Resources.ic_blur_off_2x;
-            this.btn_unbind.Location = new System.Drawing.Point(388, 218);
-            this.btn_unbind.Name = "btn_unbind";
-            this.btn_unbind.Size = new System.Drawing.Size(192, 72);
-            this.btn_unbind.TabIndex = 7;
-            this.btn_unbind.Text = "解除绑定 (&U)";
-            this.btn_unbind.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btn_unbind.UseVisualStyleBackColor = true;
-            this.btn_unbind.Visible = false;
-            this.btn_unbind.Click += new System.EventHandler(this.btn_unbind_Click);
+            this.groupBox7.Controls.Add(this.num_errlock);
+            this.groupBox7.Controls.Add(this.label8);
+            this.groupBox7.Location = new System.Drawing.Point(6, 192);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(580, 67);
+            this.groupBox7.TabIndex = 6;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "锁定方式";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Location = new System.Drawing.Point(16, 31);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(558, 25);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "如果密码输入错误，强行锁定　　　　秒。";
+            // 
+            // num_errlock
+            // 
+            this.num_errlock.Font = new System.Drawing.Font("Consolas", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.num_errlock.Location = new System.Drawing.Point(205, 32);
+            this.num_errlock.Maximum = new decimal(new int[] {
+            600,
+            0,
+            0,
+            0});
+            this.num_errlock.Name = "num_errlock";
+            this.num_errlock.Size = new System.Drawing.Size(49, 24);
+            this.num_errlock.TabIndex = 2;
+            this.num_errlock.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.num_errlock.ValueChanged += new System.EventHandler(this.num_errlock_ValueChanged);
             // 
             // FormUser
             // 
@@ -544,6 +604,9 @@
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.num_errlock)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -585,5 +648,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox combo_scale;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.NumericUpDown num_errlock;
+        private System.Windows.Forms.Label label8;
     }
 }
