@@ -33,6 +33,7 @@
             this.lbl_user = new System.Windows.Forms.Label();
             this.lbl_info = new System.Windows.Forms.Label();
             this.txt_pwdcode = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.softkeyboard = new System.Windows.Forms.TableLayoutPanel();
             this.button12 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
@@ -57,7 +58,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer_err = new System.Windows.Forms.Timer(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.windowTimer = new System.Windows.Forms.Timer(this.components);
             this.softkeyboard.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -110,6 +111,11 @@
             this.txt_pwdcode.SizeChanged += new System.EventHandler(this.txt_pwdcode_SizeChanged);
             this.txt_pwdcode.TextChanged += new System.EventHandler(this.txt_pwdcode_TextChanged);
             this.txt_pwdcode.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txt_pwdcode_KeyUp);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             // 
             // softkeyboard
             // 
@@ -475,10 +481,11 @@
             this.timer_err.Interval = 1000;
             this.timer_err.Tick += new System.EventHandler(this.timer_err_Tick);
             // 
-            // contextMenuStrip1
+            // windowTimer
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.windowTimer.Enabled = true;
+            this.windowTimer.Interval = 10;
+            this.windowTimer.Tick += new System.EventHandler(this.windowTimer_Tick);
             // 
             // FormLock
             // 
@@ -497,6 +504,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormLock";
+            this.Opacity = 0D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.TopMost = true;
@@ -542,5 +550,6 @@
         private System.Windows.Forms.Button btn_enter;
         private System.Windows.Forms.Timer timer_err;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        public System.Windows.Forms.Timer windowTimer;
     }
 }

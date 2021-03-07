@@ -31,12 +31,19 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLockSub));
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.windowTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // timer1
             // 
             this.timer1.Interval = 10;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // windowTimer
+            // 
+            this.windowTimer.Enabled = true;
+            this.windowTimer.Interval = 10;
+            this.windowTimer.Tick += new System.EventHandler(this.windowTimer_Tick);
             // 
             // FormLockSub
             // 
@@ -64,5 +71,6 @@
         #endregion
 
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer windowTimer;
     }
 }

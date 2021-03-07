@@ -30,7 +30,8 @@ namespace MFAScreenLockApp
         public bool previewMode = false;
         private int pwdEnableTime = 0;
         private int pwdEnableNow = 0;
-        public Boolean debugMode = false;
+        public bool debugMode = false;
+        private bool windowOpen = true;
 
         public FormLock()
         {
@@ -64,7 +65,7 @@ namespace MFAScreenLockApp
             if (Settings.Default.AccountSecretKey == "")
             {
                 ws = 1;
-                Close();
+                aClose();
                 return;
             }
             loadFonts();
@@ -138,7 +139,7 @@ namespace MFAScreenLockApp
             if (debugMode)
             {
                 ws = 1;
-                Close();
+                aClose();
             }
             if (previewMode)
             {
@@ -149,7 +150,7 @@ namespace MFAScreenLockApp
                 if (pass(txt_pwdcode.Text))
                 {
                     ws = 1;
-                    Close();
+                    aClose();
                 }
             }
             else if (txt_pwdcode.Text.Length == txt_pwdcode.MaxLength)
@@ -157,7 +158,7 @@ namespace MFAScreenLockApp
                 if (txt_pwdcode.Text == Settings.Default.RecoveryCode)
                 {
                     ws = 1;
-                    Close();
+                    aClose();
                 }
             }
             if (ws != 1)
@@ -318,7 +319,7 @@ namespace MFAScreenLockApp
 
         private void passwordError()
         {
-            txt_pwdcode.Font = new Font(this.Font.FontFamily,20);
+            txt_pwdcode.Font = new Font(this.Font.FontFamily, 20);
             txt_pwdcode.UseSystemPasswordChar = false;
             txt_pwdcode.Text = "密码不正确";
             txt_pwdcode.BackColor = Color.Tomato;
@@ -355,6 +356,41 @@ namespace MFAScreenLockApp
         {
             btn_enter.Width = txt_pwdcode.Height;
             btn_enter.Height = txt_pwdcode.Height;
+        }
+
+        private void windowTimer_Tick(object sender, EventArgs e)
+        {
+            if (windowOpen)
+            {
+                double newOpacity = Opacity + 0.02;
+                if (newOpacity >= 1)
+                {
+                    newOpacity = 1;
+                    windowTimer.Enabled = false;
+                }
+                Opacity = newOpacity;
+            }
+            else
+            {
+                double newOpacity = Opacity - 0.02;
+                if (newOpacity <= 0)
+                {
+                    Opacity = 0;
+                    windowTimer.Enabled = false;
+                    Close();
+                }
+                else
+                {
+                    Opacity = newOpacity;
+                }
+            }
+        }
+
+        private void aClose()
+        {
+            txt_pwdcode.Enabled = btn_enter.Enabled = false;
+            windowOpen = false;
+            windowTimer.Enabled = true;
         }
     }
 }

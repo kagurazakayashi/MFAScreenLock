@@ -216,6 +216,8 @@ namespace MFAScreenLockApp
         private void showPreview()
         {
             formlock = new FormLock();
+            formlock.windowTimer.Enabled = false;
+            formlock.Opacity = 1;
             formlock.Text = "锁屏效果预览";
             formlock.lbl_info.Text = formlock.Text;
             formlock.setBackgroundImage(ShareClass.gWallPaperBmp());
