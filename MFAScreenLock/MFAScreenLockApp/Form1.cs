@@ -18,7 +18,7 @@ namespace MFAScreenLockApp
         private Bitmap wallPaperBmp;
         private List<FormLockSub> formLockSubList = new List<FormLockSub>();
         private string[] args;
-        private Boolean debugMode = false;
+        private bool debugMode = false;
 
         public Form1()
         {
@@ -130,6 +130,10 @@ namespace MFAScreenLockApp
                 Screen[] screens = Screen.AllScreens;
                 foreach (Screen screen in screens)
                 {
+                    if (screen.Primary)
+                    {
+                        continue;
+                    }
                     Rectangle area = screen.WorkingArea;
                     FormLockSub locksub = new FormLockSub();
                     locksub.Top = area.Top;
@@ -147,7 +151,7 @@ namespace MFAScreenLockApp
             {
                 foreach (FormLockSub locksub in formLockSubList)
                 {
-                    locksub.Close();
+                    locksub.aClose();
                 }
                 formLockSubList.RemoveAll(it => true);
             }
@@ -262,11 +266,9 @@ namespace MFAScreenLockApp
 
         private void 帮助和关于HToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("将打开默认浏览器，访问位于 Github 上的仓库页面。是否继续？", "将打开网页", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                System.Diagnostics.Process.Start("https://github.com/kagurazakayashi/MFAScreenLock");
-            }
+            About about = new About();
+            about.wallPaperBmp = wallPaperBmp;
+            about.Show();
         }
 
         private void 个性化ToolStripMenuItem_Click(object sender, EventArgs e)
