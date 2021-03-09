@@ -66,15 +66,15 @@ namespace MFAScreenLockApp
             this.label1.Font = new System.Drawing.Font("微软雅黑", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(146, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(240, 46);
+            this.label1.Size = new System.Drawing.Size(317, 46);
             this.label1.TabIndex = 1;
-            this.label1.Text = "NyarukoMFA";
+            this.label1.Text = "NyarukoMFALock";
             // 
             // lbl_var
             // 
             this.lbl_var.AutoSize = true;
             this.lbl_var.BackColor = System.Drawing.Color.Transparent;
-            this.lbl_var.Location = new System.Drawing.Point(392, 38);
+            this.lbl_var.Location = new System.Drawing.Point(469, 38);
             this.lbl_var.Name = "lbl_var";
             this.lbl_var.Size = new System.Drawing.Size(37, 20);
             this.lbl_var.TabIndex = 2;
@@ -223,7 +223,7 @@ namespace MFAScreenLockApp
             this.MinimizeBox = false;
             this.Name = "About";
             this.Opacity = 0D;
-            this.Text = "关于 NyarukoMFA";
+            this.Text = "关于 NyarukoMFALock";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.About_FormClosing);
             this.Load += new System.EventHandler(this.About_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

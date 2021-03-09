@@ -222,7 +222,7 @@ namespace MFAScreenLockApp
             formlock.lbl_info.Text = formlock.Text;
             formlock.setBackgroundImage(ShareClass.gWallPaperBmp());
             formlock.previewMode = true;
-            formlock.FormBorderStyle = FormBorderStyle.Fixed3D;
+            //formlock.FormBorderStyle = FormBorderStyle.Fixed3D;
             formlock.ControlBox = true;
             formlock.MaximizeBox = true;
             formlock.TopMost = false;

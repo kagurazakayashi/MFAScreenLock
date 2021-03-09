@@ -27,12 +27,12 @@
     <MapFileExtensions>true</MapFileExtensions>
     <SupportUrl>https://github.com/kagurazakayashi/MFAScreenLock</SupportUrl>
     <ErrorReportUrl>https://github.com/kagurazakayashi/MFAScreenLock/issues</ErrorReportUrl>
-    <TargetCulture>zh</TargetCulture>
-    <ProductName>雅诗动态密码锁定工具</ProductName>
-    <PublisherName>北京篝火网络科技有限公司</PublisherName>
-    <SuiteName>霄霄设备锁定器4</SuiteName>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <TargetCulture>zh-Hans</TargetCulture>
+    <ProductName>NyarukoMFALock</ProductName>
+    <PublisherName>神楽坂雅詩</PublisherName>
+    <SuiteName>设备锁定器4</SuiteName>
+    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationVersion>4.5.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -71,7 +71,7 @@
     <ManifestKeyFile>MFAScreenLockApp_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
+    <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -186,9 +186,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
-    <None Include="LICENSE">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="MFAScreenLockApp_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
@@ -203,9 +200,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="README.md">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Resources\ic_lock_2x.png" />
   </ItemGroup>
   <ItemGroup>

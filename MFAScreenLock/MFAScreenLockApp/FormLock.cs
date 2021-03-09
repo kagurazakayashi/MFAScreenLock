@@ -62,7 +62,7 @@ namespace MFAScreenLockApp
 
         private void FormLock_Load(object sender, EventArgs e)
         {
-            if (Settings.Default.AccountSecretKey == "")
+            if (!previewMode && Settings.Default.AccountSecretKey == "")
             {
                 ws = 1;
                 aClose();
@@ -345,6 +345,7 @@ namespace MFAScreenLockApp
                 btn_enter.Text = "→";
                 timer_err.Enabled = false;
                 pwdEnableNow = 0;
+                txt_pwdcode.Focus();
             }
             else
             {

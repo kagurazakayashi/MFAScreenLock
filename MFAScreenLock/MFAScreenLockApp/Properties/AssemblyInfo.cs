@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("雅诗动态密码锁定工具")]
-[assembly: AssemblyDescription("使用谷歌验证器锁定电脑")]
+[assembly: AssemblyTitle("NyarukoMFALock")]
+[assembly: AssemblyDescription("雅诗动态密码锁定工具：使用谷歌验证器锁定电脑")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("神楽坂雅詩")]
 [assembly: AssemblyProduct("设备锁定器4")]

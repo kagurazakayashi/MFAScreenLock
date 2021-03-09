@@ -27,12 +27,12 @@ namespace MFAScreenLockApp
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.BeginInvoke(new Action(() => {
+            BeginInvoke(new Action(() => {
                 Hide();
             }));
             版本ToolStripMenuItem.Text = "版本：" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            string programname = System.Diagnostics.Process.GetCurrentProcess().ProcessName;
-            System.Diagnostics.Process[] myProcesses = System.Diagnostics.Process.GetProcessesByName(programname);//获取指定的进程名
+            string programname = Process.GetCurrentProcess().ProcessName;
+            Process[] myProcesses = Process.GetProcessesByName(programname);//获取指定的进程名
             wallPaperBmp = ShareClass.gWallPaperBmp();
             args = Environment.GetCommandLineArgs();
             if (loadConfig() && myProcesses.Length > 1) //如果可以获取到知道的进程名则说明已经启动
@@ -55,30 +55,37 @@ namespace MFAScreenLockApp
                 if (result == DialogResult.Yes)
                 {
                     Settings.Default.Reset();
+                    Restart();
+                    return false;
                 }
-                notifyIcon1.Visible = false;
-                Application.Exit();
             }
             if (Settings.Default.MachineName == "")
             {
                 timer_lock.Enabled = false;
                 FormUser formuser = new FormUser();
-                formuser.ShowDialog();
-                if (formuser.ws == 1)
+                formuser.ws = 0;
+                bool bindMode = false;
+                if (Settings.Default.MachineName.Length == 0)
                 {
-                    notifyIcon1.Visible = false;
-                    Application.Exit();
+                    bindMode = true;
                 }
-                else
+                formuser.ShowDialog();
+                if (!(bindMode && Settings.Default.MachineName.Length > 0))
                 {
-                    if (args.Length > 1 && args[1] == "-e")
+                    if (formuser.ws == 1)
                     {
                         notifyIcon1.Visible = false;
                         Application.Exit();
                     }
-                    this.BeginInvoke(new Action(() => {
+                    else
+                    {
+                        if (args.Length > 1 && args[1] == "-e")
+                        {
+                            notifyIcon1.Visible = false;
+                            Application.Exit();
+                        }
                         Close();
-                    }));
+                    }
                 }
                 formuser.ws = 0;
                 timer_lock.Enabled = true;
@@ -135,6 +142,7 @@ namespace MFAScreenLockApp
                         continue;
                     }
                     Rectangle area = screen.WorkingArea;
+                    Rectangle bound = screen.Bounds;
                     FormLockSub locksub = new FormLockSub();
                     locksub.Top = area.Top;
                     locksub.Left = area.Left;
@@ -142,7 +150,7 @@ namespace MFAScreenLockApp
                     locksub.WindowState = FormWindowState.Maximized;
                     if (!screen.Primary)
                     {
-                        locksub.setBackgroundImage(wallPaperBmp, area.Size);
+                        locksub.setBackgroundImage(wallPaperBmp, bound.Size);
                     }
                     formLockSubList.Add(locksub);
                 }

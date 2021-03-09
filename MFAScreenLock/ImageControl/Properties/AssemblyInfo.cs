@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("雅诗动态密码锁定工具")]
+[assembly: AssemblyTitle("NyarukoMFALock")]
 [assembly: AssemblyDescription("图片处理工具")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("神楽坂雅詩")]
 [assembly: AssemblyProduct("设备锁定器4")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
-[assembly: AssemblyTrademark("https://github.com/kagurazakayashi/MFAScreenLock/blob/master/LICENSE")]
+[assembly: AssemblyCopyright("https://github.com/kagurazakayashi/MFAScreenLock/blob/master/LICENSE")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 会使此程序集中的类型
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.3.0.0")]
-[assembly: AssemblyFileVersion("4.3.0.0")]
+[assembly: AssemblyVersion("4.5.0.0")]
+[assembly: AssemblyFileVersion("4.5.0.0")]

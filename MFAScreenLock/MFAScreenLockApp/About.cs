@@ -62,20 +62,21 @@ namespace MFAScreenLockApp
             formLockSubList.Add("系统内存: " + Environment.SystemPageSize.ToString());
             formLockSubList.Add("启动模式: " + SystemInformation.BootMode.ToString());
             formLockSubList.Add("系统目录: " + Environment.SystemDirectory);
-            formLockSubList.Add("主显示器分辨率: " + SystemInformation.PrimaryMonitorMaximizedWindowSize.Width.ToString() + " x " + SystemInformation.PrimaryMonitorMaximizedWindowSize.Height.ToString() + " (当前 " + SystemInformation.PrimaryMonitorSize.Width.ToString() + " x " + SystemInformation.PrimaryMonitorSize.Height.ToString() + " )");
+            formLockSubList.Add("主显示器分辨率: " + SystemInformation.PrimaryMonitorSize.Width.ToString() + " x " + SystemInformation.PrimaryMonitorSize.Height.ToString() + " (可用区域 " + SystemInformation.PrimaryMonitorMaximizedWindowSize.Width.ToString() + " x " + SystemInformation.PrimaryMonitorMaximizedWindowSize.Height.ToString() + " )");
             formLockSubList.Add("显示器 ( " + SystemInformation.MonitorCount.ToString() + " ):");
             Screen[] screens = Screen.AllScreens;
             uint screenI = 1;
             foreach (Screen screen in screens)
             {
                 Rectangle area = screen.WorkingArea;
+                Rectangle bound = screen.Bounds;
                 FormLockSub locksub = new FormLockSub();
                 string primary = "";
                 if (screen.Primary)
                 {
                     primary = "(主显示器)";
                 }
-                formLockSubList.Add("显示器 " + (screenI++).ToString() + " " + primary + ":  位置 " + area.Top.ToString() + " , " + area.Left.ToString() + "  区域 " + area.Size.Width + " x " + area.Size.Height);
+                formLockSubList.Add("显示器 " + (screenI++).ToString() + " " + primary + ":　位置 " + bound.Top.ToString() + " , " + bound.Left.ToString() + "　区域位置 " + area.Top.ToString() + " , " + area.Left.ToString() + "　分辨率 " + bound.Size.Width.ToString() + " x " + bound.Size.Height.ToString() + "　区域 " + area.Size.Width.ToString() + " x " + area.Size.Height.ToString());
             }
             foreach (string line in formLockSubList)
             {
